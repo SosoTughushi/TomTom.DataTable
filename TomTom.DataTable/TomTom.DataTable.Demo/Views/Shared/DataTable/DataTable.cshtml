@@ -1,0 +1,64 @@
+﻿
+@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@model TomTom.DataTable.Razor.GridModel
+
+<div @string.Join(" ", Model.Parameters.HtmlAttributes.Select(ha => string.Format("{0}={1}", ha.Key, ha.Value)))>
+    <div id="ItemsList-@Model.Parameters.TableId">
+
+
+        @if (!Model.Parameters.IsBodyOnly)
+        {
+
+            if (Model.Parameters.IsAjaxDataTable)
+            {
+                @Html.Partial("DataTable/FilterOptionCollection", Model.FilterOptionCollection, new ViewDataDictionary())
+            }
+            if (Model.Parameters.IsAjaxDataTable)
+            {
+                var scripts = Html.Partial("DataTable/Scripts", Model.Parameters);
+
+                //@section dataGridScripts //doesn't work from partials
+                {
+                    @scripts
+                }
+            }
+
+            <div class="grid simple" style="position: relative;">
+                <div class="grid-title @Model.Parameters.ColorClass">
+                    <h3>
+                        @{
+                            if (@Model.Parameters.Title != null)
+                            {
+                                @Html.Raw(Model.Parameters.Title.Trim())
+                            }
+                        }
+                    </h3>
+                    @if (Model.Parameters.ExportButtons.IsNotEmpty())
+                    {
+                        <div class="export-data pull-right">
+                            @foreach (var exportButton in Model.Parameters.ExportButtons)
+                            {
+                                <a href="@exportButton.Link" id="@exportButton.Id" onclick="@exportButton.OnClick">
+                                    <div class="@exportButton.Icon"></div>
+                                </a>
+                            }
+                        </div>
+                    }
+                </div>
+                @Html.Partial("DataTable/DataTableBody", Model)
+            </div>
+        }
+        else
+        {
+            Html.RenderPartial("DataTable/DataTableBody", Model);
+        }
+        
+
+
+    </div>
+
+</div>
+
+
+
