@@ -1,0 +1,12 @@
+﻿@using TomTom.DataTable.Demo.Models
+@using TomTom.DataTable.Razor
+@model List<HomeModel>
+
+@Html.DataTable(BaseViewModel.CreateSource(Model),new DataGridParameters()
+{
+    TableId = "HomeTable",
+    Title = "First Demo"
+},
+new Column<BaseViewModel<HomeModel>>(c=>c.Instance.Id),
+new Column<BaseViewModel<HomeModel>>(c=>c.Instance.Name),
+new Column<BaseViewModel<HomeModel>>(c=>c.Instance.Date))

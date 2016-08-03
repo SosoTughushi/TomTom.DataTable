@@ -1,0 +1,5 @@
+F:\Soso\Projects\TomTom.DataTable\TomTom.DataTable\TomTom.Helpers\bin\Debug\TomTom.Utilities.dll
+F:\Soso\Projects\TomTom.DataTable\TomTom.DataTable\TomTom.Helpers\bin\Debug\TomTom.Utilities.pdb
+F:\Soso\Projects\TomTom.DataTable\TomTom.DataTable\TomTom.Helpers\obj\Debug\TomTom.Utilities.csprojResolveAssemblyReference.cache
+F:\Soso\Projects\TomTom.DataTable\TomTom.DataTable\TomTom.Helpers\obj\Debug\TomTom.Utilities.dll
+F:\Soso\Projects\TomTom.DataTable\TomTom.DataTable\TomTom.Helpers\obj\Debug\TomTom.Utilities.pdb
