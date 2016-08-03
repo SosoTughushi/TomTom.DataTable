@@ -1,0 +1,13 @@
+﻿@using TomTom.DataTable.Demo.Models
+@using TomTom.DataTable.Razor
+@model List<TomTom.DataTable.Demo.Models.ActionsModel>
+
+
+@Html.DataTable(Model, new DataGridParameters()
+{
+    Title = "Actions demo",
+    TableId = "ActionsDemo",
+}
+, new Column<ActionsModel>(c => c.HasActions, title: "has actions if true")
+, new Column<ActionsModel>(c => c.Name, title: "name")
+)

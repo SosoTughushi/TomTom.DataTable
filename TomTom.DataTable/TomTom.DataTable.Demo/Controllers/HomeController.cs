@@ -63,6 +63,25 @@ namespace TomTom.DataTable.Demo.Controllers
                 create(15,true,false,false,false,false),
             });
         }
+
+        public ActionResult ActionsDemo()
+        {
+            var create = FF.Parse((bool hasActions, string name) =>
+                new ActionsModel()
+                {
+                    Name = name,
+                    HasActions = hasActions
+                }
+            );
+
+            return PartialView(new List<ActionsModel>
+            {
+                create(true, "led zeppelin"),
+                create(true,"pink floyd"),
+                create(false,"sleepy sun"),
+                create(true,"all them witches")
+            });
+        }
         
     }
 }

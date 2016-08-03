@@ -156,6 +156,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ActionsModel.cs" />
     <Compile Include="Models\Demo1Model.cs" />
     <Compile Include="Models\Demo2Model.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -175,6 +176,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\dataGridScripts.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -203,6 +205,9 @@
     <Content Include="Views\Home\DisplayTemplates\NestedPropertyTemplate.cshtml" />
     <Content Include="Views\Home\RowTypes.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Actions.cshtml" />
+    <Content Include="Views\Home\ActionsDemo.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\ActionList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
