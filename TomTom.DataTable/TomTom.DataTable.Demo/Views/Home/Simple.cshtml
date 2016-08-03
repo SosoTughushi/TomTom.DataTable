@@ -1,0 +1,20 @@
+﻿@using TomTom.DataTable.Demo.Models
+@using TomTom.DataTable.Razor
+@model List<Demo1Model>
+
+@Html.DataTable(BaseViewModel.CreateSource(Model),
+    new DataGridParameters()
+    {
+        TableId = "HomeTable",
+        Title = "First Demo"
+    },
+new Column<BaseViewModel<Demo1Model>>(c => c.Instance.Int, title: "int"),
+new Column<BaseViewModel<Demo1Model>>(c => c.Instance.String, title: "string"),
+new Column<BaseViewModel<Demo1Model>>(c => c.Instance.Date, title: "date"),
+new Column<BaseViewModel<Demo1Model>>(c => c.Instance.NestedProperty.String, title: "nested property"),
+
+new Column<BaseViewModel<Demo1Model>>(
+    c => c.Instance.NestedProperty, 
+    title: "nested property with template", 
+    displayTemplateName: "NestedPropertyTemplate")
+)

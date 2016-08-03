@@ -130,6 +130,10 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="TomTom.Functional, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\VisualStudioProjects\Visual Studio 2015\Projects\TomTom.Functional\TomTom.Functional\bin\Release\TomTom.Functional.dll</HintPath>
+    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
@@ -152,7 +156,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\HomeModel.cs" />
+    <Compile Include="Models\Demo1Model.cs" />
+    <Compile Include="Models\Demo2Model.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -192,11 +197,12 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Simple.cshtml" />
     <Content Include="Views\Shared\DataTable\DataTable.cshtml" />
     <Content Include="Views\Shared\DataTable\DataTableBody.cshtml" />
+    <Content Include="Views\Home\DisplayTemplates\NestedPropertyTemplate.cshtml" />
+    <Content Include="Views\Home\RowTypes.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

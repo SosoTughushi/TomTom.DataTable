@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TomTom.DataTable.Demo.Models;
+using TomTom.Functional;
+using FF = TomTom.Functional.Functional;
 
 namespace TomTom.DataTable.Demo.Controllers
 {
@@ -11,29 +13,56 @@ namespace TomTom.DataTable.Demo.Controllers
     {
         public ActionResult Index()
         {
-            return View(new List<HomeModel>()
+            return View();
+        }
+
+        public ActionResult Simple()
+        {
+            return PartialView(new List<Demo1Model>()
             {
-                new HomeModel()
+                new Demo1Model()
                 {
                     Date = DateTime.Now,
-                    Id = 3,
-                    Name = "Some Name"
+                    Int = 3,
+                    String = "Some String",
+                    NestedProperty = new Demo1NestedModel()
+                    {
+                        String = "I'm Nested Class String"
+                    }
                 }
             });
         }
 
-        public ActionResult About()
+        public ActionResult RowTypes()
         {
-            ViewBag.Message = "Your application description page.";
+            int count = 0;
+            var create = FF.Parse(
+                (int amount,bool hasCustomClass,bool isCorrupted,bool isDisabled,bool isImportant,bool isSuccessfull) =>
+                    new Demo2ModelViewModel()
+                    {
+                        Model = new Demo2Model()
+                        {
+                            Amount = amount,
+                            IsCorrupted = isCorrupted,
+                            IsDisabled = isDisabled,
+                            IsImportant = isImportant,
+                            IsSuccess = isSuccessfull,
+                            HasCustomClass = hasCustomClass,
+                            Id = ++count
+                        }
+                    });
 
-            return View();
+            return PartialView(new List<Demo2ModelViewModel>()
+            {
+                create(51,false,false,false,false,false),
+                create(51,false,true,false,false,false),
+                create(51,false,false,true,false,false),
+                create(51,false,false,false,true,false),
+                create(51,false,false,false,false,true),
+                create(15,false,false,false,false,false),
+                create(15,true,false,false,false,false),
+            });
         }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
+        
     }
 }

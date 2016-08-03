@@ -22,3 +22,27 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.error-row {
+    color: red;
+}
+
+.warning-row {
+    color: orange;
+}
+
+.disabled-row {
+    color: grey;
+}
+
+.bold-row {
+    font-weight: bold;
+}
+
+.success-row {
+    color: green;
+}
+
+.blue {
+    color:blue
+}

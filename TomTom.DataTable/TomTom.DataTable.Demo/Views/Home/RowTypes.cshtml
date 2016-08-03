@@ -1,0 +1,16 @@
+﻿@using TomTom.DataTable.Demo.Models
+@using TomTom.DataTable.Razor
+@model List<Demo2ModelViewModel>
+
+@Html.DataTable(Model,new DataGridParameters()
+{
+    TableId = "RowTypes",
+    Title = "Row Types"
+}
+,new Column<Demo2ModelViewModel>(c=>c.Model.Amount,title:"warning if belove 50")
+,new Column<Demo2ModelViewModel>(c=>c.Model.IsCorrupted,title:"red if true")
+,new Column<Demo2ModelViewModel>(c=>c.Model.IsDisabled,title:"disabled if true")
+,new Column<Demo2ModelViewModel>(c=>c.Model.IsImportant,title:"bold if true")
+,new Column<Demo2ModelViewModel>(c=>c.Model.IsSuccess,title:"green if true")
+,new Column<Demo2ModelViewModel>(c=>c.Model.HasCustomClass, title:"blue if true (custom class)")
+)
