@@ -1,4 +1,0 @@
-F:\Soso\Projects\TomTom.DataTable\TomTom.DataTable\TomTom.Core\bin\Debug\TomTom.Core.dll
-F:\Soso\Projects\TomTom.DataTable\TomTom.DataTable\TomTom.Core\bin\Debug\TomTom.Core.pdb
-F:\Soso\Projects\TomTom.DataTable\TomTom.DataTable\TomTom.Core\obj\Debug\TomTom.Core.dll
-F:\Soso\Projects\TomTom.DataTable\TomTom.DataTable\TomTom.Core\obj\Debug\TomTom.Core.pdb
