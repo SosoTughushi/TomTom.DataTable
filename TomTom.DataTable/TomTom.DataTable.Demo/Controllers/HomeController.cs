@@ -82,6 +82,36 @@ namespace TomTom.DataTable.Demo.Controllers
                 create(true,"all them witches")
             });
         }
-        
+
+        public ActionResult DetailsDemo()
+        {
+            return View(_detailsSource());
+        }
+
+        public PartialViewResult Details(int id)
+        {
+            return PartialView(_detailsSource().First(c => c.Id == id));
+        }
+
+
+
+        private List<DetailsDemoModel> _detailsSource()
+        {
+            int count = 0;
+            var create = FF.Parse((string name, string description) 
+                => new DetailsDemoModel()
+                {
+                    Id = ++count,
+                    Name = name,
+                    Description = description
+                });
+
+            return new List<DetailsDemoModel>()
+            {
+                create("Sleepy Sun-Golden Artifact","https://www.youtube.com/watch?v=MekyM0C2pNo"),
+                create("SHEEP - PINK FLOYD","https://www.youtube.com/watch?v=UqlsVZ1zxMk"),
+                create("House Targaryen","https://www.youtube.com/watch?v=b7_e9n-S2t8"),
+            };
+        } 
     }
 }

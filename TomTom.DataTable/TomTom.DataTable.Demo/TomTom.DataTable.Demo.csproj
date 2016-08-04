@@ -159,6 +159,7 @@
     <Compile Include="Models\ActionsModel.cs" />
     <Compile Include="Models\Demo1Model.cs" />
     <Compile Include="Models\Demo2Model.cs" />
+    <Compile Include="Models\DetailsDemoModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -208,6 +209,8 @@
     <Content Include="Views\Home\Actions.cshtml" />
     <Content Include="Views\Home\ActionsDemo.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\ActionList.cshtml" />
+    <Content Include="Views\Home\DetailsDemo.cshtml" />
+    <Content Include="Views\Home\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
