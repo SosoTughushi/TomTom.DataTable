@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.DataTable.Razor", "T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.DataTable.Razor.Tests", "TomTom.DataTable.Tests\TomTom.DataTable.Razor.Tests.csproj", "{61B122D5-3B7A-4E5C-AE22-7AC3EFB51675}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.Core", "TomTom.Core\TomTom.Core.csproj", "{80D35C6C-4A7D-486F-B0C4-D6A2B0FF5103}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.DataTable.Core", "TomTom.Core\TomTom.DataTable.Core.csproj", "{80D35C6C-4A7D-486F-B0C4-D6A2B0FF5103}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.Utilities", "TomTom.Helpers\TomTom.Utilities.csproj", "{E2B5F6DC-9EB3-42BA-B8EA-943E883E2788}"
 EndProject

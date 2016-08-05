@@ -152,14 +152,17 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AjaxDataTableDemoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastruture\DependencyResolver.cs" />
     <Compile Include="Models\ActionsModel.cs" />
     <Compile Include="Models\Demo1Model.cs" />
     <Compile Include="Models\Demo2Model.cs" />
     <Compile Include="Models\DetailsDemoModel.cs" />
+    <Compile Include="Models\FirstAjaxDemoModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -189,6 +192,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <None Include="Views\Shared\DataTable\FilterOptionCollection.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -211,6 +215,9 @@
     <Content Include="Views\Shared\DisplayTemplates\ActionList.cshtml" />
     <Content Include="Views\Home\DetailsDemo.cshtml" />
     <Content Include="Views\Home\Details.cshtml" />
+    <Content Include="Views\AjaxDataTableDemo\Index.cshtml" />
+    <Content Include="Views\Shared\DataTable\Scripts.cshtml" />
+    <Content Include="Views\Shared\DataTable\Paging.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -224,9 +231,9 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TomTom.Core\TomTom.Core.csproj">
+    <ProjectReference Include="..\TomTom.Core\TomTom.DataTable.Core.csproj">
       <Project>{80d35c6c-4a7d-486f-b0c4-d6a2b0ff5103}</Project>
-      <Name>TomTom.Core</Name>
+      <Name>TomTom.DataTable.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\TomTom.DataTable\TomTom.DataTable.Razor.csproj">
       <Project>{5d9ee93d-5f16-4d58-bc1b-0b230e9ed079}</Project>

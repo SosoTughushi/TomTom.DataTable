@@ -1,0 +1,122 @@
+﻿@using System.Collections
+@using TomTom.DataTable
+@using TomTom.DataTable.Razor
+@model TomTom.DataTable.DataGridFilters
+
+@{
+    //Item1 is order
+    var filters = new List<Tuple<FilterOption, MvcHtmlString>>();
+
+    //good luck in understanding following lines ;)
+    //commend 'new region' and uncomment 'old region' if you want to understand anything
+
+
+    Func<IEnumerable, List<FilterOption>> ToLinq = e =>
+    {
+        var enumerator = e.GetEnumerator();
+        List<FilterOption> toRet = new List<FilterOption>();
+        while (enumerator.MoveNext())
+        {
+            toRet.Add((FilterOption)enumerator.Current);
+        }
+        return toRet;
+    };
+
+    #region old
+    filters.AddRange(Model.BoolFilterOptions.Select((m, i) => new Tuple<FilterOption, MvcHtmlString>(m,
+        Html.EditorFor(model => model.BoolFilterOptions[i], Model.BoolFilterOptions[i].EditorTemplateName ?? "DataGrid/BoolFilter"))));
+
+    filters.AddRange(Model.BoolFilterOptionsNullable.Select((m, i) => new Tuple<FilterOption, MvcHtmlString>(m,
+        Html.EditorFor(model => model.BoolFilterOptionsNullable[i], Model.BoolFilterOptionsNullable[i].EditorTemplateName ?? "DataGrid/NullableBoolFilter"))));
+
+    filters.AddRange(Model.DateTimeFilterOptions.Select((m, i) => new Tuple<FilterOption, MvcHtmlString>(m,
+        Html.EditorFor(model => model.DateTimeFilterOptions[i], Model.DateTimeFilterOptions[i].EditorTemplateName ?? "DataGrid/DateTimeFilter"))));
+
+
+    filters.AddRange(Model.DateTimeFilterOptionsNullable.Select((m, i) => new Tuple<FilterOption, MvcHtmlString>(m,
+        Html.EditorFor(model => model.DateTimeFilterOptionsNullable[i], Model.DateTimeFilterOptionsNullable[i].EditorTemplateName ?? "DataGrid/NullableDateTimeFilter"))));
+
+    filters.AddRange(Model.DecimalFilterOptions.Select((m, i) => new Tuple<FilterOption, MvcHtmlString>(m,
+        Html.EditorFor(model => model.DecimalFilterOptions[i], Model.DecimalFilterOptions[i].EditorTemplateName ?? "DataGrid/DecimalFilter"))));
+
+    filters.AddRange(Model.DecimalFilterOptionsNullable.Select((m, i) => new Tuple<FilterOption, MvcHtmlString>(m,
+        Html.EditorFor(model => model.DecimalFilterOptionsNullable[i], Model.DecimalFilterOptionsNullable[i].EditorTemplateName ?? "DataGrid/NullableDecimalFilter"))));
+
+    filters.AddRange(Model.DoubleFilterOptions.Select((m, i) => new Tuple<FilterOption, MvcHtmlString>(m,
+        Html.EditorFor(model => model.DoubleFilterOptions[i], Model.DoubleFilterOptions[i].EditorTemplateName ?? "DataGrid/DoubleFilter"))));
+
+    filters.AddRange(Model.DoubleFilterOptionsNullable.Select((m, i) => new Tuple<FilterOption, MvcHtmlString>(m,
+        Html.EditorFor(model => model.DoubleFilterOptionsNullable[i], Model.DoubleFilterOptionsNullable[i].EditorTemplateName ?? "DataGrid/NullableDoubleFilter"))));
+
+    filters.AddRange(Model.FloatFilterOptions.Select((m, i) => new Tuple<FilterOption, MvcHtmlString>(m,
+        Html.EditorFor(model => model.FloatFilterOptions[i], Model.FloatFilterOptions[i].EditorTemplateName ?? "DataGrid/FloatFilter"))));
+
+    filters.AddRange(Model.FloatFilterOptionsNullable.Select((m, i) => new Tuple<FilterOption, MvcHtmlString>(m,
+        Html.EditorFor(model => model.FloatFilterOptionsNullable[i], Model.FloatFilterOptionsNullable[i].EditorTemplateName ?? "DataGrid/NullableFloatFilter"))));
+
+    filters.AddRange(Model.IntFilterOptions.Select((m, i) => new Tuple<FilterOption, MvcHtmlString>(m,
+        Html.EditorFor(model => model.IntFilterOptions[i], Model.IntFilterOptions[i].EditorTemplateName ?? "DataGrid/IntFilter"))));
+
+    filters.AddRange(Model.IntFilterOptionsNullable.Select((m, i) => new Tuple<FilterOption, MvcHtmlString>(m,
+        Html.EditorFor(model => model.IntFilterOptionsNullable[i], Model.IntFilterOptionsNullable[i].EditorTemplateName ?? "DataGrid/NullableIntFilter"))));
+
+    filters.AddRange(Model.StringFilterOptions.Select((m, i) => new Tuple<FilterOption, MvcHtmlString>(m,
+        Html.EditorFor(model => model.StringFilterOptions[i], Model.StringFilterOptions[i].EditorTemplateName ?? "DataGrid/StringFilter"))));
+
+    #endregion
+
+    var controllerName = Model.Parameters.DataTableControllerType.Name;
+
+    if (Model.Parameters.HasItemsPerPageFilter)
+    {
+        if (Model.Parameters.ItemsPerPage.HasValue)
+        {
+            Model.ItemsPerPage = Model.Parameters.ItemsPerPage.Value;
+        }
+        filters.Add(
+
+            new Tuple<FilterOption, MvcHtmlString>(new FilterOption<int>() { PropName = "ItemsPerPage" },
+                !string.IsNullOrEmpty(Model.Parameters.ItemsPerPageEditorTemplateName) ?
+                    Html.EditorFor(m => m.ItemsPerPage, Model.Parameters.ItemsPerPageEditorTemplateName) :
+                    Html.EditorFor(m => m.ItemsPerPage, "DataGrid/ItemsPerPage")));
+
+    }
+    else
+    {
+        filters.Add(new Tuple<FilterOption, MvcHtmlString>(new FilterOption<int>() { PropName = "ItemsPerPage" }, Html.HiddenFor(m => m.ItemsPerPage)));
+    }
+
+    filters.Add(new Tuple<FilterOption, MvcHtmlString>(new FilterOption<string>()
+    {
+        PropName = "Submit"
+    }, MvcHtmlString.Create(string.Format("<input type='submit' value='Filter' class='btn btn-default {0}' />", Model.Parameters.IsFiltrable ? "" : "hidden"))));
+
+    <form action="@Url.Action("ProvideDataGridData", controllerName.Substring(0, controllerName.Length - 10))"
+          method="POST"
+          class="DataGridFilters form-horizontal">
+
+
+
+        @if (Model.Parameters.FilterPartialName == null)
+        {
+            foreach (var filter in filters.OrderBy(m => m.Item1.Order))
+            {
+                @filter.Item2
+            }
+        }
+        else
+        {
+
+            var m = new DataGridFilterDisplay(filters);
+            @Html.Partial(Model.Parameters.FilterPartialName, m)
+        }
+        @Html.HiddenFor(m => m.Offset, new { @class = "offset" })
+        @Html.HiddenFor(m => m.IsSortDirectionAscending, new { @class = "sortDirection" })
+        @Html.HiddenFor(m => m.OrderingField, new { @class = "orderby" })
+        @Html.HiddenFor(m => m.TableId)
+
+
+
+    </form>
+
+}

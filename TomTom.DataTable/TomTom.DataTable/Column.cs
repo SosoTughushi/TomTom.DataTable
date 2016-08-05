@@ -11,7 +11,6 @@ namespace TomTom.DataTable.Razor
 
     public class Column<T> : ColumnBase
     {
-        //TODO: refactor into other library as extention method or something
         ///// <summary>
         ///// Only Used with AjaxDataGrid
         ///// </summary>
@@ -82,7 +81,6 @@ namespace TomTom.DataTable.Razor
         //}
 
 
-
         /// <summary>
         /// creates instance of column
         /// </summary>
@@ -105,8 +103,10 @@ namespace TomTom.DataTable.Razor
         /// <param name="allowedFilterOperationTypes">if specified, indicates operations allowed for filtering this column. Only used with AjaxDataGrid</param>
         /// <param name="awaibleValues">available values for filter. Only used with AjaxDataGrid</param>
         /// <param name="excellWorksheetName">name of excel worksheet. Only used with AjaxDataGrid and when Grid has default export in excel</param>
+        /// <param name="createNullableFilter">true if filter is non nullable and you want to wrap it with Nullable<></param>
         /// <param name="summaryText"></param>
         /// <param name="drawFunc"></param>
+        /// <param name="isSortable">true if column is sortable</param>
         public Column(Expression<Func<T, object>> property,
             int? columnWidth = null,
             string displayTemplateName = null,

@@ -1,0 +1,22 @@
+﻿@using TomTom.DataTable
+@using TomTom.DataTable.Demo.Controllers
+@using TomTom.DataTable.Demo.Models
+@using TomTom.DataTable.Razor
+
+@{
+    var grid = Html.DataGridAjax<AjaxDataTableDemoController, FirstAjaxDemoModel>(new DataGridParameters()
+    {
+        IsAjaxDataTable = true,
+        TableId = "FATD",
+        HasPaging = true,
+        IsFiltrable = true,
+        ItemsPerPage = 6
+    }
+    ,new Column<FirstAjaxDemoModel>(c=>c.Id)
+    ,new Column<FirstAjaxDemoModel>(c=>c.CategoryId)
+    ,new Column<FirstAjaxDemoModel>(c=>c.Date)
+    ,new Column<FirstAjaxDemoModel>(c=>c.Name)
+    ,new Column<FirstAjaxDemoModel>(c=>c.Status));
+}
+
+@grid

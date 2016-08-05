@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using TomTom.DataTable.Demo.Infrastruture;
 
 namespace TomTom.DataTable.Demo
 {
@@ -16,6 +17,8 @@ namespace TomTom.DataTable.Demo
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            HtmlExtentions.CreateResolver = () => new MyDependencyResolver();
         }
     }
 }

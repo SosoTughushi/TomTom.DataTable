@@ -1,0 +1,63 @@
+﻿@model TomTom.DataTable.Razor.GridModel
+
+
+@{
+    var itemsPerPage = Model.FilterOptionCollection.ItemsPerPage;
+    var safeItemsPerPage = itemsPerPage == 0 ? 1 : itemsPerPage;
+    var offset = Model.FilterOptionCollection.Offset;
+    var totalRecords = Model.FilterOptionCollection.TotalRecords;
+    var pagesCount = totalRecords / safeItemsPerPage + (totalRecords % safeItemsPerPage == 0 ? 0 : 1);
+    var currentPage = (offset / safeItemsPerPage);
+    currentPage = Math.Min(currentPage, pagesCount - 1);
+}
+
+@if (itemsPerPage != 0 && pagesCount > 1)
+{
+    <div class="text-center pagination-@Model.Parameters.TableId">
+        <ul class="pagination" data-url="@Url.Action(Request.RawUrl))">
+            @if (currentPage > 3)
+            {
+                <li>
+                    <a href="#" class="grid-pagination" data-skip="0"><</a>
+                </li>
+                <li>
+                    <a href="#" class="grid-pagination" data-skip="@((currentPage - 1) * itemsPerPage)">«</a>
+                </li>
+            }
+            @for (int i = (currentPage > 3) ? currentPage - 3 : 0; i < ((pagesCount - currentPage > 3) ? currentPage + 3 : pagesCount); i++)
+            {
+                var activeClass = (i == currentPage ? "active" : "");
+                <li>
+                    <a class="grid-pagination @activeClass" href="#" data-skip="@(i * itemsPerPage)">
+                        @if (activeClass != "")
+                        {
+                            <b>
+                                @(i + 1)
+                            </b>
+                        }
+                        else
+                        {
+                            @(i + 1)
+                        }
+                    </a>
+                </li>
+            }
+            @if (pagesCount - currentPage > 3)
+            {
+                <li>
+                    <a href="#" class="grid-pagination" data-skip="@((currentPage+1) * itemsPerPage)">»</a>
+                </li>
+                <li>
+                    <a href="#" class="grid-pagination" data-skip="@((pagesCount-1) * itemsPerPage)">></a>
+                </li>
+            }
+        </ul>
+
+    </div>
+
+    <script>
+        $(function () {
+            DataGrid.initPagination('@Model.Parameters.TableId');
+        })
+    </script>
+}

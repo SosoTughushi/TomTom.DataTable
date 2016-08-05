@@ -1,0 +1,41 @@
+﻿@model TomTom.DataTable.DataGridParameters
+
+
+<script>
+        $(function () {
+
+            var tableId = "@Model.TableId";
+            var hasPaging = @Model.HasPaging.ToString().ToLower();
+            var url = "@Url.Action("ProvideDataGridData", Model.DataTableControllerType.Name.Substring(0,Model.DataTableControllerType.Name.Length-10))";
+            DataGrid.initGrid(tableId,hasPaging,url);
+
+            $(document).on('submit', '#ItemsList-' + tableId + ' .DataGridFilters', function(e) {
+                e.preventDefault();
+                DataGrid.initGrid(tableId,hasPaging,url);
+            });
+
+            @*$.ajax({
+            url: "@Url.Action("ProvideDataGridData", Model.DataTableControllerType.Name.Substring(0,Model.DataTableControllerType.Name.Length-10))",
+        type:"POST",
+        //dataType: "json",
+        success: function(resp) {
+            $('#ItemsList-'+tableId+" .grid-body").html(resp);
+        },
+        error: function(resp, err, errorThrown) {
+            console.log(resp);
+            console.log(err);
+            console.log(errorThrown);
+        },
+        data: {
+            TableId: tableId,
+            //OrderingColumnIndex: $('TODOOrderingColumn').val(),
+            //IsSortDirectionAscending: $('asc'),
+            HasPaging: @Model.HasPaging.ToString().ToLower(),
+            ItemsPerPage: @Model.HasPaging.ToString().ToLower(),
+            //Offset: $('Offset').val(),
+            FilterOptionCollection: $(' dataTableFilters').serialize(
+            }
+    });*@
+        })
+</script>
+

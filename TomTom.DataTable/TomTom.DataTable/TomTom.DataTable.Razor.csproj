@@ -148,18 +148,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActionItem.cs" />
+    <Compile Include="Ajax\AjaxDataTable.cs" />
+    <Compile Include="Ajax\DataTableController.cs" />
+    <Compile Include="Ajax\DataTableMetaData.cs" />
+    <Compile Include="Ajax\DataTableResponse.cs" />
+    <Compile Include="Ajax\IDataProvider.cs" />
+    <Compile Include="Ajax\ITableMetaDataStorage.cs" />
     <Compile Include="BaseViewModel.cs" />
     <Compile Include="Column.cs" />
     <Compile Include="ColumnBase.cs" />
     <Compile Include="DataTable.cs" />
     <Compile Include="DataTableHelpers.cs" />
-    <Compile Include="Filters\Enums.cs" />
-    <Compile Include="Filters\FilterOption.cs" />
-    <Compile Include="Filters\Filters.cs" />
+    <Compile Include="Filters\DataTableFilterDisplay.cs" />
     <Compile Include="HtmlExtentions.cs" />
-    <Compile Include="Model\DataGridFilters.cs" />
-    <Compile Include="Model\DataGridParameters.cs" />
     <Compile Include="Model\Enums.cs" />
     <Compile Include="Model\GridCell.cs" />
     <Compile Include="Model\GridColumn.cs" />
@@ -170,6 +171,10 @@
     <Compile Include="Summary.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TomTom.Core\TomTom.DataTable.Core.csproj">
+      <Project>{80d35c6c-4a7d-486f-b0c4-d6a2b0ff5103}</Project>
+      <Name>TomTom.DataTable.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TomTom.Helpers\TomTom.Utilities.csproj">
       <Project>{e2b5f6dc-9eb3-42ba-b8ea-943e883e2788}</Project>
       <Name>TomTom.Utilities</Name>
