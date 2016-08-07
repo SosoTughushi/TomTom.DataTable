@@ -156,7 +156,7 @@ namespace TomTom.DataTable.Razor
             VisibilityRule = s => visibilityRule?.Invoke((T) s) ?? true;
 
             IsHidden = isHidden;
-            IsFiltable = isFiltrable;
+            IsFiltrable = isFiltrable;
             AllowedFilterOperationTypes = allowedFilterOperationTypes;
             AwaibleValues = awaibleValues;
             FilterEditorTemplateName = filterEditorTemplateName;
@@ -199,8 +199,6 @@ namespace TomTom.DataTable.Razor
         public bool IsVisible { get; set; }
 
         public object DefaultValue { get; set; }
-
-        public bool IsFiltable { get; set; }
 
 
         public Func<T, int, MvcHtmlString> DrawFunction { get; set; }

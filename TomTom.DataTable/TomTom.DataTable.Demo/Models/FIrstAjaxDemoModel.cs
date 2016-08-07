@@ -13,7 +13,8 @@ namespace TomTom.DataTable.Demo.Models
         public DateTime Date { get; set; }
         public decimal? Amount { get; set; }
         public int CategoryId { get; set; }
-        public Status? Status { get; set; }
+        public Status Status { get; set; }
+        public int StatusInt => (int) Status;
     }
 
     public enum Status

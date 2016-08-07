@@ -1,0 +1,21 @@
+﻿@using TomTom.DataTable
+@model FilterOption<DateTime?>
+
+@{
+    Model.OperationType = OperationType.Between;
+}
+
+@Html.HiddenFor(m => m.PropName)
+@Html.HiddenFor(m => m.OperationType)
+
+<div>
+    <label>@Model.Text</label>
+    <div class="row">
+        <div class="col-md-6">
+            @Html.TextBoxFor(m => m.Val[0], new { @class = "form-control datepicker", placeholder = "From" })
+        </div>
+        <div class="col-md-6">
+            @Html.TextBoxFor(m => m.Val[1], new { @class = "form-control datepicker", placeholder = "To" })
+        </div>
+    </div>
+</div>

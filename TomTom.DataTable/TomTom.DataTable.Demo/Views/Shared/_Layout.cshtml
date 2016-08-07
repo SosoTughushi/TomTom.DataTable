@@ -4,7 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
+        @Styles.Render("~/Content/css")
+        <link href="~/Content/bootstrap-datepicker.css" rel="stylesheet" />
             @Scripts.Render("~/bundles/modernizr")
             @Scripts.Render("~/bundles/jquery")
         <script src="~/Scripts/dataGridScripts.js"></script>
@@ -38,6 +39,8 @@
     </div>
 
     @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+            @RenderSection("scripts", required: false)
+            <script src="~/Scripts/bootstrap-datepicker.js"></script>
+        <script src="~/Scripts/main.js"></script>
 </body>
 </html>

@@ -1,0 +1,44 @@
+﻿@using TomTom.DataTable
+@using TomTom.DataTable.Demo.Models
+@using SelectListItem = System.Web.Mvc.SelectListItem
+@model TomTom.DataTable.FilterOption<int?>
+
+@{
+    Model.OperationType = OperationType.Equals;
+}
+
+@Html.HiddenFor(m => m.PropName)
+@Html.HiddenFor(m => m.OperationType)
+
+<div class="form-group">
+    @Html.LabelFor(m => m.Val[0], Model.Text)
+    @Html.DropDownListFor(m => m.Val[0], new List<SelectListItem>()
+    {
+        new SelectListItem()
+        {
+            Text = "choose status",
+            Value = ""
+        },
+        new SelectListItem()
+        {
+            Text = Status.Complete.ToString(),
+            Value = ((int)Status.Complete).ToString()
+        },
+        new SelectListItem()
+        {
+            Text = Status.Draft.ToString(),
+            Value = ((int)Status.Draft).ToString()
+        },
+        new SelectListItem()
+        {
+            Text = Status.Failed.ToString(),
+            Value = ((int)Status.Failed).ToString()
+        },
+        new SelectListItem()
+        {
+            Text = Status.Pending.ToString(),
+            Value = ((int)Status.Pending).ToString()
+        },
+
+    }, new { @class = "form-control" })
+</div>

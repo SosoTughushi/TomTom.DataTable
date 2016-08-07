@@ -10,13 +10,45 @@
         TableId = "FATD",
         HasPaging = true,
         IsFiltrable = true,
-        ItemsPerPage = 6
+        ItemsPerPage = 6,
     }
-    ,new Column<FirstAjaxDemoModel>(c=>c.Id)
-    ,new Column<FirstAjaxDemoModel>(c=>c.CategoryId)
-    ,new Column<FirstAjaxDemoModel>(c=>c.Date)
-    ,new Column<FirstAjaxDemoModel>(c=>c.Name)
-    ,new Column<FirstAjaxDemoModel>(c=>c.Status));
+    , new Column<FirstAjaxDemoModel>(
+        c => c.Id,
+        title: "id",
+        isFiltrable: true,
+        filterEditorTemplateName: "IdFilter",
+        createNullableFilter: true)
+
+    , new Column<FirstAjaxDemoModel>(
+        c => c.CategoryId, title: "categories",
+        isFiltrable: true,
+        filterEditorTemplateName: "CategoryFilter",
+        createNullableFilter: true)
+
+    , new Column<FirstAjaxDemoModel>(
+        c => c.Date, title: "date",
+        isFiltrable: true,
+        filterEditorTemplateName: "DateFilter",
+        createNullableFilter: true)
+
+    , new Column<FirstAjaxDemoModel>(
+        c => c.Name, title: "name",
+        isFiltrable: true,
+        filterEditorTemplateName: "NameFilter")
+
+    , new Column<FirstAjaxDemoModel>(
+        c => c.Status,
+        title: "status")
+
+    , new Column<FirstAjaxDemoModel>(
+        c=>c.StatusInt,
+        title:"status",
+        isFiltrable: true,
+        filterEditorTemplateName: "StatusFilter",
+        createNullableFilter: true,
+        isHidden:true)
+
+        );
 }
 
 @grid

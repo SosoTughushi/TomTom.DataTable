@@ -8,21 +8,8 @@
     var filters = new List<Tuple<FilterOption, MvcHtmlString>>();
 
     //good luck in understanding following lines ;)
-    //commend 'new region' and uncomment 'old region' if you want to understand anything
-
-
-    Func<IEnumerable, List<FilterOption>> ToLinq = e =>
-    {
-        var enumerator = e.GetEnumerator();
-        List<FilterOption> toRet = new List<FilterOption>();
-        while (enumerator.MoveNext())
-        {
-            toRet.Add((FilterOption)enumerator.Current);
-        }
-        return toRet;
-    };
-
-    #region old
+    
+    
     filters.AddRange(Model.BoolFilterOptions.Select((m, i) => new Tuple<FilterOption, MvcHtmlString>(m,
         Html.EditorFor(model => model.BoolFilterOptions[i], Model.BoolFilterOptions[i].EditorTemplateName ?? "DataGrid/BoolFilter"))));
 
@@ -62,8 +49,7 @@
 
     filters.AddRange(Model.StringFilterOptions.Select((m, i) => new Tuple<FilterOption, MvcHtmlString>(m,
         Html.EditorFor(model => model.StringFilterOptions[i], Model.StringFilterOptions[i].EditorTemplateName ?? "DataGrid/StringFilter"))));
-
-    #endregion
+    
 
     var controllerName = Model.Parameters.DataTableControllerType.Name;
 
@@ -114,8 +100,6 @@
         @Html.HiddenFor(m => m.IsSortDirectionAscending, new { @class = "sortDirection" })
         @Html.HiddenFor(m => m.OrderingField, new { @class = "orderby" })
         @Html.HiddenFor(m => m.TableId)
-
-
 
     </form>
 

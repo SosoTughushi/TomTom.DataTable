@@ -36,7 +36,7 @@ namespace TomTom.DataTable.Demo.Controllers
         {
             int count = 0;
             var create = FF.Parse(
-                (string name, DateTime date, decimal? amount, int categoryId, Status? status) =>
+                (string name, DateTime date, decimal? amount, int categoryId, Status status) =>
                     new FirstAjaxDemoModel()
                     {
                         Id = ++count,

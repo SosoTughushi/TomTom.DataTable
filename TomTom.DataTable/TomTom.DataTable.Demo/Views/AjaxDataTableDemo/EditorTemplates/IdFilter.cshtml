@@ -1,0 +1,16 @@
+﻿@using TomTom.DataTable
+@using SelectListItem = System.Web.Mvc.SelectListItem
+@model TomTom.DataTable.FilterOption<int?>
+
+@{
+    Model.OperationType = OperationType.Equals;
+}
+
+@Html.HiddenFor(m=>m.PropName)
+@Html.HiddenFor(m=>m.OperationType)
+
+<div class="form-group">
+    @Html.LabelFor(m => m.Val[0], Model.Text)
+    @Html.TextBoxFor(m => m.Val[0], new { @class = "form-control" })
+</div>
+
