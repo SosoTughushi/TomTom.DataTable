@@ -25,3 +25,9 @@ TomTom.DataTable/TomTom.Helpers/obj/Debug/TomTom.Utilities.csproj.FileListAbsolu
 TomTom.DataTable/TomTom.Helpers/obj/Debug/TomTom.Utilities.csprojResolveAssemblyReference.cache
 TomTom.DataTable/TomTom.Helpers/obj/Debug/TomTom.Utilities.dll
 TomTom.DataTable/TomTom.Helpers/obj/Debug/TomTom.Utilities.pdb
+TomTom.DataTable/TomTom.DataTable.Tests/obj/
+TomTom.DataTable/TomTom.DataTable/obj/
+TomTom.DataTable/TomTom.DataTable.Demo/obj/
+TomTom.DataTable/TomTom.Helpers/obj/
+TomTom.DataTable/TomTom.Core/obj/
+TomTom.DataTable/TomTom.Helpers/bin/
