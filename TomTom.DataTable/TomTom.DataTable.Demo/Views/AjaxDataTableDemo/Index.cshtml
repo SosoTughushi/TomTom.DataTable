@@ -17,7 +17,8 @@
         title: "id",
         isFiltrable: true,
         filterEditorTemplateName: "IdFilter",
-        createNullableFilter: true)
+        createNullableFilter: true,
+        isSortable: true)
 
     , new Column<FirstAjaxDemoModel>(
         c => c.CategoryId, title: "categories",
@@ -29,7 +30,8 @@
         c => c.Date, title: "date",
         isFiltrable: true,
         filterEditorTemplateName: "DateFilter",
-        createNullableFilter: true)
+        createNullableFilter: true,
+        isSortable: true)
 
     , new Column<FirstAjaxDemoModel>(
         c => c.Name, title: "name",
@@ -38,15 +40,16 @@
 
     , new Column<FirstAjaxDemoModel>(
         c => c.Status,
-        title: "status")
+        title: "status",
+        isSortable: true)
 
     , new Column<FirstAjaxDemoModel>(
-        c=>c.StatusInt,
-        title:"status",
+        c => c.StatusInt,
+        title: "status",
         isFiltrable: true,
         filterEditorTemplateName: "StatusFilter",
         createNullableFilter: true,
-        isHidden:true)
+        isHidden: true)
 
         );
 }
