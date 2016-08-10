@@ -217,4 +217,68 @@ namespace TomTom.DataTable.Razor
         }
         
     }
+
+
+    public class ColumnFactory<T> where T : BaseViewModel
+    {
+        private readonly List<Column<T>> _columns = new List<Column<T>>();
+
+        public ColumnFactory<T> Column(Expression<Func<T, object>> property,
+            int? columnWidth = null,
+            string displayTemplateName = null,
+            Align align = Align.Left,
+            string headerTemplateName = null,
+            bool hasFooter = false,
+            bool isVisible = true,
+            Type enumType = null,
+            int colspan = 1,
+            Func<T, string> cellData = null,
+            object defaultValue = null,
+            string title = null,
+            Func<T, bool> visibilityRule = null,
+            bool isHidden = false,
+            bool isFiltrable = false,
+            string filterEditorTemplateName = null,
+            IEnumerable<OperationType> allowedFilterOperationTypes = null,
+            IEnumerable<SelectListItem> awaibleValues = null
+            , string excellWorksheetName = null,
+            bool createNullableFilter = false,
+            string summaryText = null,
+            Func<T, int, MvcHtmlString> drawFunc = null,
+            bool isSortable = false
+            )
+        {
+            _columns.Add(new Column<T>(
+                property,
+                isSortable: isSortable,
+                columnWidth:columnWidth,
+                displayTemplateName:displayTemplateName,
+                align:align,
+                headerTemplateName:headerTemplateName,
+                hasFooter:hasFooter,
+                isVisible:isVisible,
+                enumType:enumType,
+                colspan:colspan,
+                cellData:cellData,
+                defaultValue:defaultValue,
+                title:title,
+                visibilityRule:visibilityRule,
+                isHidden:isHidden,
+                isFiltrable:isFiltrable,
+                filterEditorTemplateName:filterEditorTemplateName,
+                allowedFilterOperationTypes:allowedFilterOperationTypes,
+                awaibleValues:awaibleValues,
+                excellWorksheetName: excellWorksheetName,
+                createNullableFilter:createNullableFilter,
+                summaryText:summaryText,
+                drawFunc: drawFunc));
+
+            return this;
+        }
+
+        internal Column<T>[] GetColumns()
+        {
+            return _columns.ToArray();
+        } 
+   }
 }

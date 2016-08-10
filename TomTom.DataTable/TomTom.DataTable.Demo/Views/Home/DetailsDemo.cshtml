@@ -8,8 +8,9 @@
     Title = "Details Demo",
     TableId = "DetailsDemo",
     HasDetails = true
-}
-,new Column<DetailsDemoModel>(c=>c.Id,title:"id")
-,new Column<DetailsDemoModel>(c=>c.Name,title:"Name")
+},
+    creator=> creator
+        .Column(c=>c.Id,title:"id")
+        .Column(c=>c.Name,title:"Name")
 )
 

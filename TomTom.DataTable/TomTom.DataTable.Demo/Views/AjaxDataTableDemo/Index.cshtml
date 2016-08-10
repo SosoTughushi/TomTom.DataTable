@@ -1,4 +1,5 @@
-﻿@using TomTom.DataTable
+﻿@using System.ComponentModel.Design
+@using TomTom.DataTable
 @using TomTom.DataTable.Demo.Controllers
 @using TomTom.DataTable.Demo.Models
 @using TomTom.DataTable.Razor
@@ -11,8 +12,9 @@
         HasPaging = true,
         IsFiltrable = true,
         ItemsPerPage = 6,
-    }
-    , new Column<FirstAjaxDemoModel>(
+    }, creator=>creator
+
+    .Column(
         c => c.Id,
         title: "id",
         isFiltrable: true,
@@ -20,37 +22,36 @@
         createNullableFilter: true,
         isSortable: true)
 
-    , new Column<FirstAjaxDemoModel>(
+    .Column(
         c => c.CategoryId, title: "categories",
         isFiltrable: true,
         filterEditorTemplateName: "CategoryFilter",
         createNullableFilter: true)
 
-    , new Column<FirstAjaxDemoModel>(
+    .Column(
         c => c.Date, title: "date",
         isFiltrable: true,
         filterEditorTemplateName: "DateFilter",
         createNullableFilter: true,
         isSortable: true)
 
-    , new Column<FirstAjaxDemoModel>(
+    .Column(
         c => c.Name, title: "name",
         isFiltrable: true,
         filterEditorTemplateName: "NameFilter")
 
-    , new Column<FirstAjaxDemoModel>(
+    .Column(
         c => c.Status,
         title: "status",
         isSortable: true)
 
-    , new Column<FirstAjaxDemoModel>(
+    .Column(
         c => c.StatusInt,
         title: "status",
         isFiltrable: true,
         filterEditorTemplateName: "StatusFilter",
         createNullableFilter: true,
         isHidden: true)
-
         );
 }
 

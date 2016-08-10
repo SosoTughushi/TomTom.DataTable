@@ -8,7 +8,8 @@
 {
     Title = "Actions demo",
     TableId = "ActionsDemo",
-}
-, new Column<ActionsModel>(c => c.HasActions, title: "has actions if true")
-, new Column<ActionsModel>(c => c.Name, title: "name")
+},
+    creator => creator
+    .Column(c => c.HasActions, title: "has actions if true")
+    .Column(c => c.Name, title: "name")
 )
