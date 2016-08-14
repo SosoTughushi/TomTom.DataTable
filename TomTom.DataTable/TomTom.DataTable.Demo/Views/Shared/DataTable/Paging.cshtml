@@ -18,10 +18,10 @@
             @if (currentPage > 3)
             {
                 <li>
-                    <a href="#" class="grid-pagination" data-skip="0"><</a>
+                    <a href="#" class="grid-pagination" data-skip="0">«</a>
                 </li>
                 <li>
-                    <a href="#" class="grid-pagination" data-skip="@((currentPage - 1) * itemsPerPage)">«</a>
+                    <a href="#" class="grid-pagination" data-skip="@((currentPage - 1) * itemsPerPage)"><</a>
                 </li>
             }
             @for (int i = (currentPage > 3) ? currentPage - 3 : 0; i < ((pagesCount - currentPage > 3) ? currentPage + 3 : pagesCount); i++)
@@ -45,10 +45,10 @@
             @if (pagesCount - currentPage > 3)
             {
                 <li>
-                    <a href="#" class="grid-pagination" data-skip="@((currentPage+1) * itemsPerPage)">»</a>
+                    <a href="#" class="grid-pagination" data-skip="@((currentPage+1) * itemsPerPage)">></a>
                 </li>
                 <li>
-                    <a href="#" class="grid-pagination" data-skip="@((pagesCount-1) * itemsPerPage)">></a>
+                    <a href="#" class="grid-pagination" data-skip="@((pagesCount-1) * itemsPerPage)">»</a>
                 </li>
             }
         </ul>
