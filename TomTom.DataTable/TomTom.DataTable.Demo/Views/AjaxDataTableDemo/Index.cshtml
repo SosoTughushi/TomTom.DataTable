@@ -9,7 +9,9 @@
         TableId = "FATD",
         HasPaging = true,
         IsFiltrable = true,
-        ItemsPerPage = 6,
+        FilterPartialName = "FirstDemoFilters",
+        HasItemsPerPageFilter = true,
+        ItemsPerPageEditorTemplateName = "ItemsPerPage"
     }, creator=>creator
 
     .Column(

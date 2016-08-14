@@ -8,14 +8,14 @@
 @Html.HiddenFor(m => m.PropName)
 @Html.HiddenFor(m => m.OperationType)
 
-<div>
+<div class="form-group">
     <label>@Model.Text</label>
     <div class="row">
-        <div class="col-md-6">
-            @Html.TextBoxFor(m => m.Val[0], new { @class = "form-control datepicker", placeholder = "From" })
+        <div class="col-md-5">
+            @Html.TextBoxFor(m => m.Val[0], new { @class = "datepicker", placeholder = "From" })
         </div>
-        <div class="col-md-6">
-            @Html.TextBoxFor(m => m.Val[1], new { @class = "form-control datepicker", placeholder = "To" })
+        <div class="col-md-offset-1 col-md-5">
+            @Html.TextBoxFor(m => m.Val[1], new { @class = "datepicker", placeholder = "To" })
         </div>
     </div>
 </div>

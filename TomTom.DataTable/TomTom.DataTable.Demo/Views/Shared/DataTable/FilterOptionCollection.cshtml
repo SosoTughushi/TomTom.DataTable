@@ -8,8 +8,8 @@
     var filters = new List<Tuple<FilterOption, MvcHtmlString>>();
 
     //good luck in understanding following lines ;)
-    
-    
+
+
     filters.AddRange(Model.BoolFilterOptions.Select((m, i) => new Tuple<FilterOption, MvcHtmlString>(m,
         Html.EditorFor(model => model.BoolFilterOptions[i], Model.BoolFilterOptions[i].EditorTemplateName ?? "DataGrid/BoolFilter"))));
 
@@ -49,9 +49,11 @@
 
     filters.AddRange(Model.StringFilterOptions.Select((m, i) => new Tuple<FilterOption, MvcHtmlString>(m,
         Html.EditorFor(model => model.StringFilterOptions[i], Model.StringFilterOptions[i].EditorTemplateName ?? "DataGrid/StringFilter"))));
-    
+
 
     var controllerName = Model.Parameters.DataTableControllerType.Name;
+
+    MvcHtmlString itemsPerPage = null;
 
     if (Model.Parameters.HasItemsPerPageFilter)
     {
@@ -59,12 +61,10 @@
         {
             Model.ItemsPerPage = Model.Parameters.ItemsPerPage.Value;
         }
-        filters.Add(
 
-            new Tuple<FilterOption, MvcHtmlString>(new FilterOption<int>() { PropName = "ItemsPerPage" },
-                !string.IsNullOrEmpty(Model.Parameters.ItemsPerPageEditorTemplateName) ?
+        itemsPerPage = !string.IsNullOrEmpty(Model.Parameters.ItemsPerPageEditorTemplateName) ?
                     Html.EditorFor(m => m.ItemsPerPage, Model.Parameters.ItemsPerPageEditorTemplateName) :
-                    Html.EditorFor(m => m.ItemsPerPage, "DataGrid/ItemsPerPage")));
+                    Html.EditorFor(m => m.ItemsPerPage, "DataTable/ItemsPerPage");
 
     }
     else
@@ -72,10 +72,8 @@
         filters.Add(new Tuple<FilterOption, MvcHtmlString>(new FilterOption<int>() { PropName = "ItemsPerPage" }, Html.HiddenFor(m => m.ItemsPerPage)));
     }
 
-    filters.Add(new Tuple<FilterOption, MvcHtmlString>(new FilterOption<string>()
-    {
-        PropName = "Submit"
-    }, MvcHtmlString.Create(string.Format("<input type='submit' value='Filter' class='btn btn-default {0}' />", Model.Parameters.IsFiltrable ? "" : "hidden"))));
+    var filterButton = MvcHtmlString.Create(string.Format("<input type='submit' value='Filter' class='btn btn-default {0}' />", Model.Parameters.IsFiltrable ? "" : "hidden"));
+
 
     <form action="@Url.Action("ProvideDataGridData", controllerName.Substring(0, controllerName.Length - 10))"
           method="POST"
@@ -93,7 +91,7 @@
         else
         {
 
-            var m = new DataGridFilterDisplay(filters);
+            var m = new DataGridFilterDisplay(filters, filterButton, itemsPerPage);
             @Html.Partial(Model.Parameters.FilterPartialName, m)
         }
         @Html.HiddenFor(m => m.Offset, new { @class = "offset" })

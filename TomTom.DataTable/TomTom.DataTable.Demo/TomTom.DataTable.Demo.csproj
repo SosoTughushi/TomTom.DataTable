@@ -284,6 +284,7 @@
     <Content Include="Views\AjaxDataTableDemo\EditorTemplates\CategoryFilter.cshtml" />
     <Content Include="Views\AjaxDataTableDemo\EditorTemplates\DateFilter.cshtml" />
     <Content Include="Views\AjaxDataTableDemo\EditorTemplates\StatusFilter.cshtml" />
+    <Content Include="Views\AjaxDataTableDemo\FirstDemoFilters.cshtml" />
     <None Include="Views\Shared\DataTable\FilterOptionCollection.cshtml" />
     <Content Include="Views\AjaxDataTableDemo\FirstAjaxDemoCode.html" />
     <Content Include="Views\Home\ActionsDemoCode.html" />
@@ -315,6 +316,7 @@
     <Content Include="Views\AjaxDataTableDemo\Index.cshtml" />
     <Content Include="Views\Shared\DataTable\Scripts.cshtml" />
     <Content Include="Views\Shared\DataTable\Paging.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ItemsPerPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

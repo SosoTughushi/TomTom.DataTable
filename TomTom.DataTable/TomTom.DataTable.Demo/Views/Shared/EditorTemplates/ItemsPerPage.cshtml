@@ -1,0 +1,28 @@
+﻿@model int
+<div class="form-group">
+    @Html.LabelFor(m => m, "Items Per Page")
+    @Html.DropDownListFor(m => m, new List<SelectListItem>()
+    {
+        new SelectListItem()
+        {
+            Text = "20",
+            Value = "20"
+        },
+        new SelectListItem()
+        {
+            Text = "50",
+            Value = "50",
+            Selected = true
+        },
+        new SelectListItem()
+        {
+            Text = "100",
+            Value = "100"
+        },
+        new SelectListItem()
+        {
+            Text = "All",
+            Value = ""
+        },
+    }, new { @class = "form-control" })
+</div>

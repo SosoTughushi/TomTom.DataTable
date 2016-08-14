@@ -1,0 +1,16 @@
+﻿@model TomTom.DataTable.Razor.DataGridFilterDisplay
+
+
+<div class="row">
+    <div class="col-md-6">
+        @Model["Name"]
+        @Model["Id"]
+        @Model.ItemsPerPage
+    </div>
+    <div class="col-md-6">
+        @Model["Date"]
+        @Model["StatusInt"]
+        @Model["CategoryId"]
+    </div>
+</div>
+@Model.SubmitButton
