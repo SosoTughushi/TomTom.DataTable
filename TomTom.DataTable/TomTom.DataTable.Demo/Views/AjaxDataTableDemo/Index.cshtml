@@ -1,8 +1,6 @@
-﻿@using System.ComponentModel.Design
-@using TomTom.DataTable
+﻿@using TomTom.DataTable
 @using TomTom.DataTable.Demo.Controllers
 @using TomTom.DataTable.Demo.Models
-@using TomTom.DataTable.Razor
 
 @{
     var grid = Html.DataGridAjax<AjaxDataTableDemoController, FirstAjaxDemoModel>(new DataGridParameters()
@@ -56,3 +54,6 @@
 }
 
 @grid
+
+
+@Html.Code("~/Views/AjaxDataTableDemo/FirstAjaxDemoCode.html")

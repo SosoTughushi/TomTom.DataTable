@@ -1,6 +1,5 @@
 ﻿@using TomTom.DataTable
 @using TomTom.DataTable.Demo.Models
-@using TomTom.DataTable.Razor
 @model List<Demo2ModelViewModel>
 
 @Html.DataTable(Model,new DataGridParameters()
@@ -15,3 +14,5 @@
     .Column(c=>c.Model.IsSuccess,title:"green if true")
     .Column(c=>c.Model.HasCustomClass, title:"blue if true (custom class)")
 )
+
+@Html.Code("~/Views/Home/RowTypesCode.html")

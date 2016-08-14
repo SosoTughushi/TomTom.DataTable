@@ -1,0 +1,74 @@
+﻿<h4>Model:</h4>
+<div class="code">
+    <span class="Modifier">public</span>&nbsp;<span class="ReferenceType">class</span>&nbsp;DetailsDemoModel&nbsp;:&nbsp;BaseViewModel<br/>
+    {<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;<span class="ValueType">int</span>&nbsp;Id&nbsp;{&nbsp;get;&nbsp;set;&nbsp;}<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;<span class="ReferenceType">string</span>&nbsp;Name&nbsp;{&nbsp;get;&nbsp;set;&nbsp;}<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;<span class="ReferenceType">string</span>&nbsp;Description&nbsp;{&nbsp;get;&nbsp;set;&nbsp;}<br/>
+    <br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;<span class="Modifier">override</span>&nbsp;<span class="ReferenceType">string</span>&nbsp;Detailurl(UrlHelper&nbsp;urlHelper,&nbsp;<span class="ReferenceType">string</span>&nbsp;invokerId)<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;{<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Statement">return</span>&nbsp;urlHelper.Action(<span class="String">"Details"</span>,&nbsp;<span class="String">"Home"</span>,&nbsp;<span class="Keyword">new</span>&nbsp;{id&nbsp;=&nbsp;Id});<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+    }
+</div>
+
+<h4>View:</h4>
+
+<div class="code">
+    @<span class="Namespace">using</span>&nbsp;TomTom.DataTable<br/>
+    @model&nbsp;List&lt;TomTom.DataTable.Demo.Models.DetailsDemoModel&gt;<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;<br/>
+    @Html.DataTable(Model,<span class="Keyword">new</span>&nbsp;DataGridParameters()<br/>
+    {<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;Title&nbsp;=&nbsp;<span class="String">"Details&nbsp;Demo"</span>,<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;TableId&nbsp;=&nbsp;<span class="String">"DetailsDemo"</span>,<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;HasDetails&nbsp;=&nbsp;<span class="Keyword">true</span><br/>
+    },<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;creator=&gt;&nbsp;creator<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.Column(c=&gt;c.Id,title:<span class="String">"id"</span>)<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.Column(c=&gt;c.Name,title:<span class="String">"Name"</span>)<br/>
+    )
+</div>
+
+<div class="code">
+    @model&nbsp;TomTom.DataTable.Demo.Models.DetailsDemoModel<br/>
+    <br/>
+    &lt;h3&gt;@DateTime.Now&lt;/h3&gt;<br/>
+    &lt;h4&gt;<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;a&nbsp;href=<span class="String">"@Model.Description"</span>&gt;@Model.Name&lt;/a&gt;<br/>
+    &lt;/h4&gt;
+</div>
+
+<h4>Controller:</h4>
+
+<div class="code">
+    <span class="Modifier">public</span>&nbsp;ActionResult&nbsp;DetailsDemo()<br />
+    {<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="Statement">return</span>&nbsp;View(_detailsSource());<br />
+    }<br />
+    <br />
+    <span class="Modifier">public</span>&nbsp;PartialViewResult&nbsp;Details(<span class="ValueType">int</span>&nbsp;id)<br />
+    {<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="Statement">return</span>&nbsp;PartialView(_detailsSource().First(c&nbsp;=&gt;&nbsp;c.Id&nbsp;==&nbsp;id));<br />
+    }<br />
+    <br />
+    <span class="Modifier">private</span>&nbsp;List&lt;DetailsDemoModel&gt;&nbsp;_detailsSource()<br />
+    {<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="ValueType">int</span>&nbsp;count&nbsp;=&nbsp;0;<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="Linq">var</span>&nbsp;create&nbsp;=&nbsp;FF.Parse((<span class="ReferenceType">string</span>&nbsp;name,&nbsp;<span class="ReferenceType">string</span>&nbsp;description)&nbsp;<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&gt;&nbsp;<span class="Keyword">new</span>&nbsp;DetailsDemoModel()<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Id&nbsp;=&nbsp;++count,<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Name&nbsp;=&nbsp;name,<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Description&nbsp;=&nbsp;description<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});<br />
+    <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="Statement">return</span>&nbsp;<span class="Keyword">new</span>&nbsp;List&lt;DetailsDemoModel&gt;()<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;create(<span class="String">"Sleepy&nbsp;Sun-Golden&nbsp;Artifact"</span>,<span class="String">"https://www.youtube.com/watch?v=MekyM0C2pNo"</span>),<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;create(<span class="String">"SHEEP&nbsp;-&nbsp;PINK&nbsp;FLOYD"</span>,<span class="String">"https://www.youtube.com/watch?v=UqlsVZ1zxMk"</span>),<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;create(<span class="String">"House&nbsp;Targaryen"</span>,<span class="String">"https://www.youtube.com/watch?v=b7_e9n-S2t8"</span>),<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;};<br />
+    }
+</div>

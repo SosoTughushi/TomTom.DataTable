@@ -1,0 +1,142 @@
+﻿
+<h4>Model:</h4>
+
+<div class="code">
+    <span class="Modifier">public</span>&nbsp;<span class="ReferenceType">class</span>&nbsp;Demo2Model<br />
+    &nbsp;&nbsp;&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;<span class="ValueType">int</span>&nbsp;Id&nbsp;{&nbsp;get;&nbsp;set;&nbsp;}<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;<span class="ValueType">bool</span>&nbsp;IsCorrupted&nbsp;{&nbsp;get;&nbsp;set;&nbsp;}<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;<span class="ValueType">bool</span>&nbsp;IsDisabled&nbsp;{&nbsp;get;&nbsp;set;&nbsp;}<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;<span class="ValueType">bool</span>&nbsp;IsImportant&nbsp;{&nbsp;get;&nbsp;set;&nbsp;}<br />
+    <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;<span class="ValueType">bool</span>&nbsp;IsSuccess&nbsp;{&nbsp;get;&nbsp;set;&nbsp;}<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;<span class="ValueType">int</span>&nbsp;Amount&nbsp;{&nbsp;get;&nbsp;set;&nbsp;}<br />
+    <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;<span class="ValueType">bool</span>&nbsp;HasCustomClass&nbsp;{&nbsp;get;&nbsp;set;&nbsp;}<br />
+    &nbsp;&nbsp;&nbsp;}<br />
+    <br />
+    &nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;<span class="ReferenceType">class</span>&nbsp;Demo2ModelViewModel&nbsp;:&nbsp;BaseViewModel<br />
+    &nbsp;&nbsp;&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;Demo2Model&nbsp;Model&nbsp;{&nbsp;get;&nbsp;set;&nbsp;}<br />
+    <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;<span class="Modifier">override</span>&nbsp;RowType&nbsp;GetRowType()<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Statement">if</span>(Model.IsCorrupted)<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Statement">return</span>&nbsp;RowType.Error;<br />
+    <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Statement">if</span>(Model.IsDisabled)<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Statement">return</span>&nbsp;RowType.Disabled;<br />
+    <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Statement">if</span>&nbsp;(Model.IsImportant)<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Statement">return</span>&nbsp;RowType.Bold;<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+    <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Statement">if</span>&nbsp;(Model.IsSuccess)<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Statement">return</span>&nbsp;RowType.Success;<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+    <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Statement">if</span>&nbsp;(Model.Amount&nbsp;&lt;&nbsp;50)<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Statement">return</span>&nbsp;RowType.Warning;<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+    <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Statement">return</span>&nbsp;<span class="Keyword">base</span>.GetRowType();<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+    <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;<span class="Modifier">override</span>&nbsp;<span class="ReferenceType">string</span>&nbsp;GetRowClasses(<span class="ReferenceType">string</span>&nbsp;invokerId)<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Statement">if</span>&nbsp;(Model.HasCustomClass)<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Statement">return</span>&nbsp;<span class="String">"blue"</span>;<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Statement">return</span>&nbsp;<span class="Keyword">base</span>.GetRowClasses(invokerId);<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+    &nbsp;&nbsp;&nbsp;}
+</div>
+
+<h4>View:</h4>
+
+<div class="code">
+    @<span class="Namespace">using</span>&nbsp;TomTom.DataTable<br/>
+    @<span class="Namespace">using</span>&nbsp;TomTom.DataTable.Demo.Models<br/>
+    @model&nbsp;List&lt;Demo2ModelViewModel&gt;<br/>
+    <br/>
+    @Html.DataTable(Model,<span class="Keyword">new</span>&nbsp;DataGridParameters()<br/>
+    {<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;TableId&nbsp;=&nbsp;<span class="String">"RowTypes"</span>,<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;Title&nbsp;=&nbsp;<span class="String">"Row&nbsp;Types"</span><br/>
+    },&nbsp;creator=&gt;creator<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;.Column(c=&gt;c.Model.Amount,title:<span class="String">"warning&nbsp;if&nbsp;belove&nbsp;50"</span>)<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;.Column(c=&gt;c.Model.IsCorrupted,title:<span class="String">"red&nbsp;if&nbsp;true"</span>)<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;.Column(c=&gt;c.Model.IsDisabled,title:<span class="String">"disabled&nbsp;if&nbsp;true"</span>)<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;.Column(c=&gt;c.Model.IsImportant,title:<span class="String">"bold&nbsp;if&nbsp;true"</span>)<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;.Column(c=&gt;c.Model.IsSuccess,title:<span class="String">"green&nbsp;if&nbsp;true"</span>)<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;.Column(c=&gt;c.Model.HasCustomClass,&nbsp;title:<span class="String">"blue&nbsp;if&nbsp;true&nbsp;(custom&nbsp;class)"</span>)<br/>
+    )
+</div>
+
+<h4>Controller:</h4>
+
+<div class="code">
+    <span class="Modifier">public</span>&nbsp;ActionResult&nbsp;RowTypes()<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ValueType">int</span>&nbsp;count&nbsp;=&nbsp;0;<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Linq">var</span>&nbsp;create&nbsp;=&nbsp;FF.Parse(<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="ValueType">int</span>&nbsp;amount,<span class="ValueType">bool</span>&nbsp;hasCustomClass,<span class="ValueType">bool</span>&nbsp;isCorrupted,<span class="ValueType">bool</span>&nbsp;isDisabled,<span class="ValueType">bool</span>&nbsp;isImportant,<span class="ValueType">bool</span>&nbsp;isSuccessfull)&nbsp;=&gt;<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Keyword">new</span>&nbsp;Demo2ModelViewModel()<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Model&nbsp;=&nbsp;<span class="Keyword">new</span>&nbsp;Demo2Model()<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Amount&nbsp;=&nbsp;amount,<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IsCorrupted&nbsp;=&nbsp;isCorrupted,<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IsDisabled&nbsp;=&nbsp;isDisabled,<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IsImportant&nbsp;=&nbsp;isImportant,<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IsSuccess&nbsp;=&nbsp;isSuccessfull,<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HasCustomClass&nbsp;=&nbsp;hasCustomClass,<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Id&nbsp;=&nbsp;++count<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});<br/>
+    <br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Statement">return</span>&nbsp;View(<span class="Keyword">new</span>&nbsp;List&lt;Demo2ModelViewModel&gt;()<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;create(51,<span class="Keyword">false</span>,<span class="Keyword">false</span>,<span class="Keyword">false</span>,<span class="Keyword">false</span>,<span class="Keyword">false</span>),<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;create(51,<span class="Keyword">false</span>,<span class="Keyword">true</span>,<span class="Keyword">false</span>,<span class="Keyword">false</span>,<span class="Keyword">false</span>),<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;create(51,<span class="Keyword">false</span>,<span class="Keyword">false</span>,<span class="Keyword">true</span>,<span class="Keyword">false</span>,<span class="Keyword">false</span>),<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;create(51,<span class="Keyword">false</span>,<span class="Keyword">false</span>,<span class="Keyword">false</span>,<span class="Keyword">true</span>,<span class="Keyword">false</span>),<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;create(51,<span class="Keyword">false</span>,<span class="Keyword">false</span>,<span class="Keyword">false</span>,<span class="Keyword">false</span>,<span class="Keyword">true</span>),<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;create(15,<span class="Keyword">false</span>,<span class="Keyword">false</span>,<span class="Keyword">false</span>,<span class="Keyword">false</span>,<span class="Keyword">false</span>),<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;create(15,<span class="Keyword">true</span>,<span class="Keyword">false</span>,<span class="Keyword">false</span>,<span class="Keyword">false</span>,<span class="Keyword">false</span>),<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+</div>
+
+
+<h4>Styles:</h4>
+
+<div class="code">
+    .error-row&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;color:&nbsp;red;<br />
+    }<br />
+    <br />
+    .warning-row&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;color:&nbsp;orange;<br />
+    }<br />
+    <br />
+    .disabled-row&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;color:&nbsp;grey;<br />
+    }<br />
+    <br />
+    .bold-row&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;font-weight:&nbsp;bold;<br />
+    }<br />
+    <br />
+    .success-row&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;color:&nbsp;green;<br />
+    }<br />
+    <br />
+    .blue&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;color:blue<br />
+    }
+</div>

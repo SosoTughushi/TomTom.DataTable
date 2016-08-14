@@ -1,0 +1,72 @@
+﻿<h4>Model:</h4>
+<div class="code">
+    <span class="Modifier">public</span>&nbsp;<span class="ReferenceType">class</span>&nbsp;Demo1Model<br />
+    {<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;<span class="ValueType">int</span>&nbsp;Int&nbsp;{&nbsp;get;&nbsp;set;&nbsp;}<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;<span class="ReferenceType">string</span>&nbsp;String&nbsp;{&nbsp;get;&nbsp;set;&nbsp;}<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;DateTime&nbsp;Date&nbsp;{&nbsp;get;&nbsp;set;&nbsp;}<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;DateTime?&nbsp;DateN&nbsp;{&nbsp;get;&nbsp;set;&nbsp;}<br />
+    <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;Demo1NestedModel&nbsp;NestedProperty&nbsp;{&nbsp;get;&nbsp;set;&nbsp;}<br />
+    }<br />
+    <br />
+    <span class="Modifier">public</span>&nbsp;<span class="ReferenceType">class</span>&nbsp;Demo1NestedModel<br />
+    {<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;<span class="ReferenceType">string</span>&nbsp;String&nbsp;{&nbsp;get;&nbsp;set;&nbsp;}<br />
+    }
+</div>
+
+<h4>View:</h4>
+
+
+<div class="code">
+    @<span class="Namespace">using</span>&nbsp;TomTom.DataTable<br />
+    @<span class="Namespace">using</span>&nbsp;TomTom.DataTable.Demo.Models<br />
+    @<span class="Namespace">using</span>&nbsp;TomTom.DataTable.Razor<br />
+    @model&nbsp; List & lt; Demo1Model & gt;< br />
+    <br />
+    @
+    Html.DataTable(BaseViewModel.CreateSource(Model),< br />
+    &nbsp; &nbsp; &nbsp; &nbsp;<span class="Keyword">new</span>&nbsp;DataGridParameters()<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TableId&nbsp;=&nbsp;<span class="String">"HomeTable"</span>,<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Title&nbsp;=&nbsp;<span class="String">"First&nbsp;Demo"</span><br />
+    &nbsp;&nbsp;&nbsp;&nbsp;},&nbsp;creator=&gt;creator<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;.Column(c&nbsp;=&gt;&nbsp;c.Instance.Int,&nbsp;title:&nbsp;<span class="String">"int"</span>)<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;.Column(c&nbsp;=&gt;&nbsp;c.Instance.String,&nbsp;title:&nbsp;<span class="String">"string"</span>)<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;.Column(c&nbsp;=&gt;&nbsp;c.Instance.Date,&nbsp;title:&nbsp;<span class="String">"date"</span>)<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;.Column(c&nbsp;=&gt;&nbsp;c.Instance.NestedProperty.String,&nbsp;title:&nbsp;<span class="String">"nested&nbsp;property"</span>)<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;.Column(<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c&nbsp;=&gt;&nbsp;c.Instance.NestedProperty,&nbsp;<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title:&nbsp;<span class="String">"nested&nbsp;property&nbsp;with&nbsp;template"</span>,&nbsp;<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;displayTemplateName:&nbsp;<span class="String">"NestedPropertyTemplate"</span>)<br />
+    )
+</div>
+
+<h4>Controller:</h4>
+<div class="code">
+    <span class="Modifier">public</span>&nbsp;ActionResult&nbsp;Simple()<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ValueType">int</span>&nbsp;id&nbsp;=&nbsp;0;<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Linq">var</span>&nbsp;create&nbsp;=&nbsp;FF.Parse((<span class="ReferenceType">string</span>&nbsp;stringParam,&nbsp;<span class="ReferenceType">string</span>&nbsp;nesterProperty)&nbsp;=&gt;<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Keyword">new</span>&nbsp;Demo1Model()<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date&nbsp;=&nbsp;DateTime.Now,<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Int&nbsp;=&nbsp;++id,<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;=&nbsp;stringParam,<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NestedProperty&nbsp;=&nbsp;<span class="Keyword">new</span>&nbsp;Demo1NestedModel()<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;=&nbsp;nesterProperty<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});<br />
+    <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Statement">return</span>&nbsp;View(<span class="Keyword">new</span>&nbsp;List&lt;Demo1Model&gt;()<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;create(<span class="String">"Climax&nbsp;Blues&nbsp;Band"</span>,&nbsp;<span class="String">"Shopping&nbsp;Bag&nbsp;People"</span>),<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;create(<span class="String">"PINK&nbsp;FLOYD"</span>,&nbsp;<span class="String">"SHEEP"</span>),<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;create(<span class="String">"Beck"</span>,&nbsp;<span class="String">"Gamma&nbsp;Ray"</span>),<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;create(<span class="String">"Led&nbsp;Zeppelin"</span>,&nbsp;<span class="String">"No&nbsp;Quarter"</span>),<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;create(<span class="String">"Kill&nbsp;It&nbsp;Kid"</span>,&nbsp;<span class="String">"Pray&nbsp;On&nbsp;Me"</span>),<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+</div>

@@ -18,18 +18,26 @@ namespace TomTom.DataTable.Demo.Controllers
 
         public ActionResult Simple()
         {
-            return PartialView(new List<Demo1Model>()
-            {
+            int id = 0;
+            var create = FF.Parse((string stringParam, string nesterProperty) =>
                 new Demo1Model()
                 {
                     Date = DateTime.Now,
-                    Int = 3,
-                    String = "Some String",
+                    Int = ++id,
+                    String = stringParam,
                     NestedProperty = new Demo1NestedModel()
                     {
-                        String = "I'm Nested Class String"
+                        String = nesterProperty
                     }
-                }
+                });
+
+            return View(new List<Demo1Model>()
+            {
+                create("Climax Blues Band", "Shopping Bag People"),
+                create("PINK FLOYD", "SHEEP"),
+                create("Beck", "Gamma Ray"),
+                create("Led Zeppelin", "No Quarter"),
+                create("Kill It Kid", "Pray On Me"),
             });
         }
 
@@ -52,7 +60,7 @@ namespace TomTom.DataTable.Demo.Controllers
                         }
                     });
 
-            return PartialView(new List<Demo2ModelViewModel>()
+            return View(new List<Demo2ModelViewModel>()
             {
                 create(51,false,false,false,false,false),
                 create(51,false,true,false,false,false),
@@ -74,7 +82,7 @@ namespace TomTom.DataTable.Demo.Controllers
                 }
             );
 
-            return PartialView(new List<ActionsModel>
+            return View(new List<ActionsModel>
             {
                 create(true, "led zeppelin"),
                 create(true,"pink floyd"),
@@ -92,8 +100,6 @@ namespace TomTom.DataTable.Demo.Controllers
         {
             return PartialView(_detailsSource().First(c => c.Id == id));
         }
-
-
 
         private List<DetailsDemoModel> _detailsSource()
         {

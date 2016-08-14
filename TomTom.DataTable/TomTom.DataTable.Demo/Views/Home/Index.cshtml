@@ -3,27 +3,9 @@
     ViewBag.Title = "Demos";
 }
 
-<fieldset>
-    <legend>Simple demo</legend>
-    @Html.Action("Simple")
-</fieldset>
 
-
-<fieldset>
-    <legend>Row types demo</legend>
-    @Html.Action("RowTypes")
-</fieldset>
-
-
-
-<fieldset>
-    <legend>Actions demo</legend>
-    @Html.Action("ActionsDemo")
-</fieldset>
-
-<fieldset>
-    <legend>
-        Details demo
-    </legend>
-    @Html.Action("DetailsDemo")
-</fieldset>
+<a href="@Url.Action("Simple")" class="btn btn-lg btn-primary">Simple</a>
+<a href="@Url.Action("RowTypes")" class="btn btn-lg btn-info">RowTypes</a>
+<a href="@Url.Action("ActionsDemo")" class="btn btn-lg btn-success">ActionsDemo</a>
+<a href="@Url.Action("DetailsDemo")" class="btn btn-lg btn-danger">DetailsDemo</a>
+<a href="@Url.Action("Index","AjaxDataTableDemo")" class="btn btn-lg btn-default">AjaxDataTable</a>

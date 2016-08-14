@@ -7,7 +7,8 @@
         @Styles.Render("~/Content/css")
         <link href="~/Content/bootstrap-datepicker.css" rel="stylesheet" />
             @Scripts.Render("~/bundles/modernizr")
-            @Scripts.Render("~/bundles/jquery")
+                @Scripts.Render("~/bundles/jquery")
+                <link href="~/Content/SyntaxHighlit.css" rel="stylesheet" />
         <script src="~/Scripts/dataGridScripts.js"></script>
 </head>
 <body>
@@ -19,13 +20,15 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("TomTom.DataTable", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Simple", "Simple", "Home")</li>
+                    <li>@Html.ActionLink("RowTypes", "RowTypes", "Home")</li>
+                    <li>@Html.ActionLink("ActionsDemo", "ActionsDemo", "Home")</li>
+                    <li>@Html.ActionLink("DetailsDemo", "DetailsDemo", "Home")</li>
+                    <li>@Html.ActionLink("AjaxDataTableDemo", "Index", "AjaxDataTableDemo")</li>
                 </ul>
             </div>
         </div>

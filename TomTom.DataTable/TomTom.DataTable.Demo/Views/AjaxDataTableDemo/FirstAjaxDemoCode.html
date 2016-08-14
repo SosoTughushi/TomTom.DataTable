@@ -1,0 +1,306 @@
+﻿<h4>Model:</h4>
+
+<div class="code">
+    <span class="Modifier">public</span>&nbsp;<span class="ReferenceType">class</span>&nbsp;FirstAjaxDemoModel&nbsp;:&nbsp;BaseViewModel<br/>
+    {<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;<span class="ValueType">int</span>&nbsp;Id&nbsp;{&nbsp;get;&nbsp;set;&nbsp;}<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;<span class="ReferenceType">string</span>&nbsp;Name&nbsp;{&nbsp;get;&nbsp;set;&nbsp;}<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;DateTime&nbsp;Date&nbsp;{&nbsp;get;&nbsp;set;&nbsp;}<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;<span class="ValueType">decimal</span>?&nbsp;Amount&nbsp;{&nbsp;get;&nbsp;set;&nbsp;}<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;<span class="ValueType">int</span>&nbsp;CategoryId&nbsp;{&nbsp;get;&nbsp;set;&nbsp;}<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;Status&nbsp;Status&nbsp;{&nbsp;get;&nbsp;set;&nbsp;}<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;<span class="ValueType">int</span>&nbsp;StatusInt&nbsp;=&gt;&nbsp;(<span class="ValueType">int</span>)&nbsp;Status;<br/>
+    }<br/>
+    <br/>
+    <span class="Modifier">public</span>&nbsp;<span class="ValueType">enum</span>&nbsp;Status<br/>
+    {<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;Pending,<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;Draft,<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;Complete,<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;Failed<br/>
+    }
+</div>
+
+<h4>View:</h4>
+
+<div class="code">
+    @<span class="Namespace">using</span>&nbsp;TomTom.DataTable<br/>
+    @<span class="Namespace">using</span>&nbsp;TomTom.DataTable.Demo.Controllers<br/>
+    @<span class="Namespace">using</span>&nbsp;TomTom.DataTable.Demo.Models<br/>
+    <br/>
+    @{<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="Linq">var</span>&nbsp;grid&nbsp;=&nbsp;Html.DataGridAjax&lt;AjaxDataTableDemoController,&nbsp;FirstAjaxDemoModel&gt;(<span class="Keyword">new</span>&nbsp;DataGridParameters()<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;{<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IsAjaxDataTable&nbsp;=&nbsp;<span class="Keyword">true</span>,<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TableId&nbsp;=&nbsp;<span class="String">"FATD"</span>,<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HasPaging&nbsp;=&nbsp;<span class="Keyword">true</span>,<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IsFiltrable&nbsp;=&nbsp;<span class="Keyword">true</span>,<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ItemsPerPage&nbsp;=&nbsp;6,<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;},&nbsp;creator=&gt;creator<br/>
+    <br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;.Column(<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c&nbsp;=&gt;&nbsp;c.Id,<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title:&nbsp;<span class="String">"id"</span>,<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isFiltrable:&nbsp;<span class="Keyword">true</span>,<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;filterEditorTemplateName:&nbsp;<span class="String"><b>"IdFilter"</b></span>,<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;createNullableFilter:&nbsp;<span class="Keyword">true</span>,<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isSortable:&nbsp;<span class="Keyword">true</span>)<br/>
+    <br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;.Column(<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c&nbsp;=&gt;&nbsp;c.CategoryId,&nbsp;title:&nbsp;<span class="String">"categories"</span>,<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isFiltrable:&nbsp;<span class="Keyword">true</span>,<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;filterEditorTemplateName:&nbsp;<span class="String"><b>"CategoryFilter"</b></span>,<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;createNullableFilter:&nbsp;<span class="Keyword">true</span>)<br/>
+    <br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;.Column(<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c&nbsp;=&gt;&nbsp;c.Date,&nbsp;title:&nbsp;<span class="String">"date"</span>,<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isFiltrable:&nbsp;<span class="Keyword">true</span>,<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;filterEditorTemplateName:&nbsp;<span class="String"><b>"DateFilter"</b></span>,<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;createNullableFilter:&nbsp;<span class="Keyword">true</span>,<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isSortable:&nbsp;<span class="Keyword">true</span>)<br/>
+    <br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;.Column(<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c&nbsp;=&gt;&nbsp;c.Name,&nbsp;title:&nbsp;<span class="String">"name"</span>,<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isFiltrable:&nbsp;<span class="Keyword">true</span>,<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;filterEditorTemplateName:&nbsp;<span class="String"><b>"NameFilter"</b></span>)<br/>
+    <br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;.Column(<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c&nbsp;=&gt;&nbsp;c.Status,<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title:&nbsp;<span class="String">"status"</span>,<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isSortable:&nbsp;<span class="Keyword">true</span>)<br/>
+    <br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;.Column(<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c&nbsp;=&gt;&nbsp;c.StatusInt,<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title:&nbsp;<span class="String">"status"</span>,<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isFiltrable:&nbsp;<span class="Keyword">true</span>,<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;filterEditorTemplateName:&nbsp;<span class="String"><b>"StatusFilter"</b></span>,<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;createNullableFilter:&nbsp;<span class="Keyword">true</span>,<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isHidden:&nbsp;<span class="Keyword">true</span>)<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br/>
+    }<br/>
+    <br/>
+    @grid
+</div>
+
+
+
+<h5>EditorTemplates/IdFilter.cshtml</h5>
+
+<div class="code">
+    @<span class="Namespace">using</span>&nbsp;TomTom.DataTable<br/>
+    @model&nbsp;FilterOption&lt;<span class="ValueType">int</span>?&gt;<br/>
+    <br/>
+    @{<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;Model.OperationType&nbsp;=&nbsp;OperationType.Equals;<br/>
+    }<br/>
+    <br/>
+    @Html.HiddenFor(m=&gt;m.PropName)<br/>
+    @Html.HiddenFor(m=&gt;m.OperationType)<br/>
+    <br/>
+    &lt;div&nbsp;<span class="ReferenceType">class</span>=<span class="String">"form-group"</span>&gt;<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;@Html.LabelFor(m&nbsp;=&gt;&nbsp;m.Val[0],&nbsp;Model.Text)<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;@Html.TextBoxFor(m&nbsp;=&gt;&nbsp;m.Val[0],&nbsp;<span class="Keyword">new</span>&nbsp;{&nbsp;@<span class="ReferenceType">class</span>&nbsp;=&nbsp;<span class="String">"form-control"</span>&nbsp;})<br/>
+    &lt;/div&gt;
+</div>
+
+<h5>EditorTemplates/CategoryFilter.cshtml</h5>
+
+<div class="code">
+    @<span class="Namespace">using</span>&nbsp;TomTom.DataTable<br />
+    @<span class="Namespace">using</span>&nbsp;SelectListItem&nbsp;=&nbsp;System.Web.Mvc.SelectListItem<br />
+    @model&nbsp;FilterOption&lt;<span class="ValueType">int</span>?&gt;<br />
+    <br />
+    @{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;Model.OperationType&nbsp;=&nbsp;OperationType.Equals;<br />
+    }<br />
+    <br />
+    @Html.HiddenFor(m&nbsp;=&gt;&nbsp;m.PropName)<br />
+    @Html.HiddenFor(m&nbsp;=&gt;&nbsp;m.OperationType)<br />
+    <br />
+    &lt;div&nbsp;<span class="ReferenceType">class</span>=<span class="String">"form-group"</span>&gt;<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;@Html.LabelFor(m&nbsp;=&gt;&nbsp;m.Val[0],&nbsp;Model.Text)<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;@Html.DropDownListFor(m&nbsp;=&gt;&nbsp;m.Val[0],&nbsp;<span class="Keyword">new</span>&nbsp;List&lt;SelectListItem&gt;()<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Keyword">new</span>&nbsp;SelectListItem()<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Text&nbsp;=&nbsp;<span class="String">"choose&nbsp;category"</span>,<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Value&nbsp;=&nbsp;<span class="String">""</span><br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Keyword">new</span>&nbsp;SelectListItem()<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Text&nbsp;=&nbsp;<span class="String">"Led&nbsp;Zeppelin"</span>,<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Value&nbsp;=&nbsp;<span class="String">"1"</span><br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Keyword">new</span>&nbsp;SelectListItem()<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Text&nbsp;=&nbsp;<span class="String">"Pink&nbsp;Floyd"</span>,<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Value&nbsp;=&nbsp;<span class="String">"2"</span><br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Keyword">new</span>&nbsp;SelectListItem()<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Text&nbsp;=&nbsp;<span class="String">"The&nbsp;White&nbsp;Stripes"</span>,<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Value&nbsp;=&nbsp;<span class="String">"3"</span><br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br />
+    <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;},&nbsp;<span class="Keyword">new</span>&nbsp;{&nbsp;@<span class="ReferenceType">class</span>&nbsp;=&nbsp;<span class="String">"form-control"</span>&nbsp;})<br />
+    &lt;/div&gt;
+</div>
+
+<h5>EditorTemplates/DateFilter.cshtml</h5>
+
+<div class="code">
+    @<span class="Namespace">using</span>&nbsp;TomTom.DataTable<br />
+    @model&nbsp;FilterOption&lt;DateTime?&gt;<br />
+    <br />
+    @{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;Model.OperationType&nbsp;=&nbsp;OperationType.Between;<br />
+    }<br />
+    <br />
+    @Html.HiddenFor(m&nbsp;=&gt;&nbsp;m.PropName)<br />
+    @Html.HiddenFor(m&nbsp;=&gt;&nbsp;m.OperationType)<br />
+    <br />
+    &lt;div&gt;<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;label&gt;@Model.Text&lt;/label&gt;<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;div&nbsp;<span class="ReferenceType">class</span>=<span class="String">"row"</span>&gt;<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&nbsp;<span class="ReferenceType">class</span>=<span class="String">"col-md-6"</span>&gt;<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Html.TextBoxFor(m&nbsp;=&gt;&nbsp;m.Val[0],&nbsp;<span class="Keyword">new</span>&nbsp;{&nbsp;@<span class="ReferenceType">class</span>&nbsp;=&nbsp;<span class="String">"form-control&nbsp;datepicker"</span>,&nbsp;placeholder&nbsp;=&nbsp;<span class="String">"From"</span>&nbsp;})<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&nbsp;<span class="ReferenceType">class</span>=<span class="String">"col-md-6"</span>&gt;<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Html.TextBoxFor(m&nbsp;=&gt;&nbsp;m.Val[1],&nbsp;<span class="Keyword">new</span>&nbsp;{&nbsp;@<span class="ReferenceType">class</span>&nbsp;=&nbsp;<span class="String">"form-control&nbsp;datepicker"</span>,&nbsp;placeholder&nbsp;=&nbsp;<span class="String">"To"</span>&nbsp;})<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br />
+    &lt;/div&gt;
+</div>
+
+
+<h5>EditorTemplates/NameFilter.cshtml</h5>
+
+<div class="code">
+    @<span class="Namespace">using</span>&nbsp;TomTom.DataTable<br/>
+    @model&nbsp;FilterOption&lt;<span class="ReferenceType">string</span>&gt;<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;<br/>
+    <br/>
+    @{<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;Model.OperationType&nbsp;=&nbsp;OperationType.Contains;<br/>
+    }<br/>
+    <br/>
+    @Html.HiddenFor(m&nbsp;=&gt;&nbsp;m.PropName)<br/>
+    @Html.HiddenFor(m&nbsp;=&gt;&nbsp;m.OperationType)<br/>
+    <br/>
+    <br/>
+    &lt;div&nbsp;<span class="ReferenceType">class</span>=<span class="String">"form-group"</span>&gt;<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;@Html.LabelFor(m&nbsp;=&gt;&nbsp;m.Val[0],&nbsp;Model.Text)<br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;@Html.TextBoxFor(m&nbsp;=&gt;&nbsp;m.Val[0],&nbsp;<span class="Keyword">new</span>&nbsp;{&nbsp;@<span class="ReferenceType">class</span>&nbsp;=&nbsp;<span class="String">"form-control"</span>&nbsp;})<br/>
+    &lt;/div&gt;
+</div>
+
+<h5>EditrTemplates/StatusFilter.cshtml</h5>
+
+<div class="code">
+    @<span class="Namespace">using</span>&nbsp;TomTom.DataTable<br />
+    @<span class="Namespace">using</span>&nbsp;TomTom.DataTable.Demo.Models<br />
+    @<span class="Namespace">using</span>&nbsp;SelectListItem&nbsp;=&nbsp;System.Web.Mvc.SelectListItem<br />
+    @model&nbsp;FilterOption&lt;<span class="ValueType">int</span>?&gt;<br />
+    <br />
+    @{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;Model.OperationType&nbsp;=&nbsp;OperationType.Equals;<br />
+    }<br />
+    <br />
+    @Html.HiddenFor(m&nbsp;=&gt;&nbsp;m.PropName)<br />
+    @Html.HiddenFor(m&nbsp;=&gt;&nbsp;m.OperationType)<br />
+    <br />
+    &lt;div&nbsp;<span class="ReferenceType">class</span>=<span class="String">"form-group"</span>&gt;<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;@Html.LabelFor(m&nbsp;=&gt;&nbsp;m.Val[0],&nbsp;Model.Text)<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;@Html.DropDownListFor(m&nbsp;=&gt;&nbsp;m.Val[0],&nbsp;<span class="Keyword">new</span>&nbsp;List&lt;SelectListItem&gt;()<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Keyword">new</span>&nbsp;SelectListItem()<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Text&nbsp;=&nbsp;<span class="String">"choose&nbsp;status"</span>,<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Value&nbsp;=&nbsp;<span class="String">""</span><br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Keyword">new</span>&nbsp;SelectListItem()<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Text&nbsp;=&nbsp;Status.Complete.ToString(),<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Value&nbsp;=&nbsp;((<span class="ValueType">int</span>)Status.Complete).ToString()<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Keyword">new</span>&nbsp;SelectListItem()<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Text&nbsp;=&nbsp;Status.Draft.ToString(),<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Value&nbsp;=&nbsp;((<span class="ValueType">int</span>)Status.Draft).ToString()<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Keyword">new</span>&nbsp;SelectListItem()<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Text&nbsp;=&nbsp;Status.Failed.ToString(),<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Value&nbsp;=&nbsp;((<span class="ValueType">int</span>)Status.Failed).ToString()<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Keyword">new</span>&nbsp;SelectListItem()<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Text&nbsp;=&nbsp;Status.Pending.ToString(),<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Value&nbsp;=&nbsp;((<span class="ValueType">int</span>)Status.Pending).ToString()<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br />
+    <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;},&nbsp;<span class="Keyword">new</span>&nbsp;{&nbsp;@<span class="ReferenceType">class</span>&nbsp;=&nbsp;<span class="String">"form-control"</span>&nbsp;})<br />
+    &lt;/div&gt;
+</div>
+
+<h4>Controller:</h4>
+
+<div class="code">
+    <span class="Modifier">public</span>&nbsp;<span class="ReferenceType">class</span>&nbsp;AjaxDataTableDemoController&nbsp;:&nbsp;DataTableController,&nbsp;IDataProvider&lt;FirstAjaxDemoModel&gt;<br />
+    {<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;AjaxDataTableDemoController()&nbsp;:&nbsp;<span class="Keyword">base</span>(<span class="Keyword">new</span>&nbsp;DataTablaSessionMetaDataStorage())<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;}<br />
+    <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;ActionResult&nbsp;Index()<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Statement">return</span>&nbsp;View();<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;}<br />
+    <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">public</span>&nbsp;DataTableResponse&lt;FirstAjaxDemoModel&gt;&nbsp;GetData(DataGridFilters&nbsp;request,&nbsp;FirstAjaxDemoModel&nbsp;notUsed&nbsp;=&nbsp;<span class="Keyword">null</span>)<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Linq">var</span>&nbsp;source&nbsp;=&nbsp;_createSource();<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Statement">return</span>&nbsp;<span class="Keyword">new</span>&nbsp;DataTableResponse&lt;FirstAjaxDemoModel&gt;()<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DataList&nbsp;=&nbsp;source.DataTableEnumerableFilter(request).ToList(),<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TotalRecords&nbsp;=&nbsp;source.DataTableEnumerableCount(request)<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;};<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;}<br />
+    <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="Modifier">private</span>&nbsp;List&lt;FirstAjaxDemoModel&gt;&nbsp;_createSource()<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ValueType">int</span>&nbsp;count&nbsp;=&nbsp;0;<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Linq">var</span>&nbsp;create&nbsp;=&nbsp;FF.Parse(<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="ReferenceType">string</span>&nbsp;name,&nbsp;DateTime&nbsp;date,&nbsp;<span class="ValueType">decimal</span>?&nbsp;amount,&nbsp;<span class="ValueType">int</span>&nbsp;categoryId,&nbsp;Status&nbsp;status)&nbsp;=&gt;<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Keyword">new</span>&nbsp;FirstAjaxDemoModel()<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Id&nbsp;=&nbsp;++count,<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Name&nbsp;=&nbsp;name,<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date&nbsp;=&nbsp;date,<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Amount&nbsp;=&nbsp;amount,<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CategoryId&nbsp;=&nbsp;categoryId,<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Status&nbsp;=&nbsp;status<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});<br />
+    <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Linq">var</span>&nbsp;source&nbsp;=&nbsp;<span class="Keyword">new</span>&nbsp;List&lt;FirstAjaxDemoModel&gt;()<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;create(<span class="String">"Pink&nbsp;Floyd&nbsp;-&nbsp;Coming&nbsp;Back&nbsp;to&nbsp;Life"</span>,<span class="Keyword">new</span>&nbsp;DateTime(2008,1,24),&nbsp;11464788,2,Status.Pending),<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;create(<span class="String">"Led&nbsp;Zeppelin&nbsp;-&nbsp;Going&nbsp;To&nbsp;California"</span>,<span class="Keyword">new</span>&nbsp;DateTime(2008,4,16),&nbsp;4119524,1,Status.Complete),<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;create(<span class="String">"Pink&nbsp;Floyd&nbsp;Final&nbsp;Cut&nbsp;(9)&nbsp;-&nbsp;The&nbsp;Fletcher&nbsp;Memorial&nbsp;Home"</span>,<span class="Keyword">new</span>&nbsp;DateTime(2008,12,21),&nbsp;529183,2,Status.Pending),<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;create(<span class="String">"The&nbsp;White&nbsp;Stripes&nbsp;I&nbsp;think&nbsp;I&nbsp;smell&nbsp;a&nbsp;rat"</span>,<span class="Keyword">new</span>&nbsp;DateTime(2009,8,15),&nbsp;476079,3,Status.Pending),<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;create(<span class="String">"Ramble&nbsp;On&nbsp;-&nbsp;Led&nbsp;Zeppelin"</span>,<span class="Keyword">new</span>&nbsp;DateTime(2009,6,11),&nbsp;13744144,1,Status.Pending),<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;};<br />
+    <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="InlineComment">//duplicating&nbsp;records</span><br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;source.AddRange(source.ToList());<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;source.AddRange(source.ToList());<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;source.AddRange(source.ToList());<br />
+    <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="Statement">return</span>&nbsp;source;<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;}<br />
+    <br />
+    }
+</div>
+
+
