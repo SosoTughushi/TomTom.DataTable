@@ -75,6 +75,14 @@
             }
             DataGrid.initGrid(tableId);
         },
+        changeOperationType: function (element) {
+            var container = $(element).closest('.filterContainer');
+            var val = $(element).data('value');
+            var display = $(element).data('display');
+            var operationTypeInput = container.find('.operationType');
+            operationTypeInput.val(val);
+            container.find('.currentOperationTypeDisplay').html(display);
+        }
     };
     return obj;
 }();

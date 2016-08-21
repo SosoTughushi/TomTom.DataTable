@@ -7,7 +7,6 @@ namespace TomTom.DataTable
 
     public abstract class FilterOption
     {
-
         public string PropName { get; set; }
         public int Order { get; set; }
         public OperationType OperationType { get; set; }
@@ -53,8 +52,6 @@ namespace TomTom.DataTable
 
         public int Id { get; set; }
 
-
-
         public class FilterOperation
         {
             public OperationType OperationType { get; set; }
@@ -74,6 +71,9 @@ namespace TomTom.DataTable
             get { return string.IsNullOrEmpty(_editorTemplateNameField) ? null : _editorTemplateNameField; }
             set { _editorTemplateNameField = value; }
         }
+
+        public abstract IEnumerable<OperationType> DefaultFilterOptionTypes { get; }
+
     }
 
     public class FilterOption<T> : FilterOption
@@ -127,5 +127,67 @@ namespace TomTom.DataTable
         {
             return (T)Convert.ChangeType(c, Nullable.GetUnderlyingType(typeof(T)) ?? typeof(T));
         }
+
+
+
+        public override IEnumerable<OperationType> DefaultFilterOptionTypes
+        {
+            get
+            {
+                if (IsDirectType<string>())
+                {
+                    return new List<OperationType>()
+                    {
+                        OperationType.Empty,
+                        OperationType.Equals,
+                        OperationType.Contains,
+                    };
+                }
+
+                if (IsType<bool>())
+                {
+                    return new List<OperationType>
+                    {
+                        OperationType.Empty,
+                        OperationType.Equals,
+                        OperationType.NotEquals
+                    };
+                }
+
+                if (IsType<DateTime>())
+                {
+                    return new List<OperationType>
+                    {
+                        OperationType.Empty,
+                        OperationType.MoreThen,
+                        OperationType.LessThen,
+                        OperationType.MoreOrEquealsThen
+                    };
+                }
+
+                return new List<OperationType>()
+                    {
+                        OperationType.Empty,
+                        OperationType.Equals,
+                        OperationType.MoreThen,
+                        OperationType.MoreOrEquealsThen,
+                        OperationType.LessThen,
+                        OperationType.LessOrEquealsThen,
+                        OperationType.In,
+                    };
+
+            }
+        }
+
+        private static bool IsType<T2>() where T2 : struct
+        {
+            return typeof(T) == typeof(T2) || typeof(T) == typeof(T2?);
+        }
+
+        private static bool IsDirectType<T2>()
+        {
+            return typeof (T) == typeof (T2);
+        }
+
     }
 }

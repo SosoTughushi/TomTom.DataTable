@@ -1,0 +1,49 @@
+﻿
+@using TomTom.DataTable
+@using SelectListItem = System.Web.Mvc.SelectListItem
+@model FilterOption
+
+
+@{
+    var availableFilters = Model.DefaultFilterOptionTypes;
+
+    if (Model.AllowedFilterOprationTypes.IsNotEmpty())
+    {
+        availableFilters = Model.AllowedFilterOprationTypes.ToList();
+    }
+}
+
+<div class="input-group filterContainer">
+    <div class="input-group-btn">
+        <div class="btn btn-default"><b><i>@Model.Text</i></b></div>
+        <button type="button"
+                class="btn btn-default dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false">
+            <span class="currentOperationTypeDisplay">@availableFilters.First().ToMathString()</span> <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            @Html.HiddenFor(m => m.OperationType, new { @class = "operationType" })
+            @foreach (var filter in availableFilters)
+            {
+                <li>
+                    <a href="#"
+                       title="@filter"
+                       onclick="DataGrid.changeOperationType(this)"
+                       data-value="@filter"
+                       data-display="@filter.ToMathString()">
+                        @filter.ToMathString()
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+    @Html.TextBoxFor(c => c.Value, new { @class = "form-control" })
+</div>
+
+
+
+
+
+@Html.Partial("EditorTemplates/DataTable/FilterOption", Model)

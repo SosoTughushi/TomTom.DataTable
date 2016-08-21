@@ -18,7 +18,7 @@
         c => c.Id,
         title: "id",
         isFiltrable: true,
-        filterEditorTemplateName: "IdFilter",
+        //filterEditorTemplateName: "IdFilter",
         createNullableFilter: true,
         isSortable: true)
 
@@ -37,8 +37,7 @@
 
     .Column(
         c => c.Name, title: "name",
-        isFiltrable: true,
-        filterEditorTemplateName: "NameFilter")
+        isFiltrable: true)
 
     .Column(
         c => c.Status,

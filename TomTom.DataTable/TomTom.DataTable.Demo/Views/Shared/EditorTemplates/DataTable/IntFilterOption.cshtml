@@ -1,0 +1,7 @@
+﻿@model TomTom.DataTable.FilterOption<int>
+    
+@Html.EditorForModel("DataTable/FilterOption")
+
+
+@Html.LabelFor(m=>m.Val[0],Model.Text)
+@Html.TextBoxFor(m=>m.Val[0])

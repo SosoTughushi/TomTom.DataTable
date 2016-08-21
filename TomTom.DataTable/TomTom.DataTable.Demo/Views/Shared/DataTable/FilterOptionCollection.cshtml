@@ -24,31 +24,31 @@
         Html.EditorFor(model => model.DateTimeFilterOptionsNullable[i], Model.DateTimeFilterOptionsNullable[i].EditorTemplateName ?? "DataGrid/NullableDateTimeFilter"))));
 
     filters.AddRange(Model.DecimalFilterOptions.Select((m, i) => new Tuple<FilterOption, MvcHtmlString>(m,
-        Html.EditorFor(model => model.DecimalFilterOptions[i], Model.DecimalFilterOptions[i].EditorTemplateName ?? "DataGrid/DecimalFilter"))));
+        Html.EditorFor(model => model.DecimalFilterOptions[i], Model.DecimalFilterOptions[i].EditorTemplateName ?? "DataTable/SimpleFilterOption"))));
 
     filters.AddRange(Model.DecimalFilterOptionsNullable.Select((m, i) => new Tuple<FilterOption, MvcHtmlString>(m,
-        Html.EditorFor(model => model.DecimalFilterOptionsNullable[i], Model.DecimalFilterOptionsNullable[i].EditorTemplateName ?? "DataGrid/NullableDecimalFilter"))));
+        Html.EditorFor(model => model.DecimalFilterOptionsNullable[i], Model.DecimalFilterOptionsNullable[i].EditorTemplateName ?? "DataTable/SimpleFilterOption"))));
 
     filters.AddRange(Model.DoubleFilterOptions.Select((m, i) => new Tuple<FilterOption, MvcHtmlString>(m,
-        Html.EditorFor(model => model.DoubleFilterOptions[i], Model.DoubleFilterOptions[i].EditorTemplateName ?? "DataGrid/DoubleFilter"))));
+        Html.EditorFor(model => model.DoubleFilterOptions[i], Model.DoubleFilterOptions[i].EditorTemplateName ?? "DataTable/SimpleFilterOption"))));
 
     filters.AddRange(Model.DoubleFilterOptionsNullable.Select((m, i) => new Tuple<FilterOption, MvcHtmlString>(m,
-        Html.EditorFor(model => model.DoubleFilterOptionsNullable[i], Model.DoubleFilterOptionsNullable[i].EditorTemplateName ?? "DataGrid/NullableDoubleFilter"))));
+        Html.EditorFor(model => model.DoubleFilterOptionsNullable[i], Model.DoubleFilterOptionsNullable[i].EditorTemplateName ?? "DataTable/SimpleFilterOption"))));
 
     filters.AddRange(Model.FloatFilterOptions.Select((m, i) => new Tuple<FilterOption, MvcHtmlString>(m,
-        Html.EditorFor(model => model.FloatFilterOptions[i], Model.FloatFilterOptions[i].EditorTemplateName ?? "DataGrid/FloatFilter"))));
+        Html.EditorFor(model => model.FloatFilterOptions[i], Model.FloatFilterOptions[i].EditorTemplateName ?? "DataTable/SimpleFilterOption"))));
 
     filters.AddRange(Model.FloatFilterOptionsNullable.Select((m, i) => new Tuple<FilterOption, MvcHtmlString>(m,
-        Html.EditorFor(model => model.FloatFilterOptionsNullable[i], Model.FloatFilterOptionsNullable[i].EditorTemplateName ?? "DataGrid/NullableFloatFilter"))));
+        Html.EditorFor(model => model.FloatFilterOptionsNullable[i], Model.FloatFilterOptionsNullable[i].EditorTemplateName ?? "DataTable/SimpleFilterOption"))));
 
     filters.AddRange(Model.IntFilterOptions.Select((m, i) => new Tuple<FilterOption, MvcHtmlString>(m,
-        Html.EditorFor(model => model.IntFilterOptions[i], Model.IntFilterOptions[i].EditorTemplateName ?? "DataGrid/IntFilter"))));
+        Html.EditorFor(model => model.IntFilterOptions[i], Model.IntFilterOptions[i].EditorTemplateName ?? "DataTable/SimpleFilterOption"))));
 
     filters.AddRange(Model.IntFilterOptionsNullable.Select((m, i) => new Tuple<FilterOption, MvcHtmlString>(m,
-        Html.EditorFor(model => model.IntFilterOptionsNullable[i], Model.IntFilterOptionsNullable[i].EditorTemplateName ?? "DataGrid/NullableIntFilter"))));
+        Html.EditorFor(model => model.IntFilterOptionsNullable[i], Model.IntFilterOptionsNullable[i].EditorTemplateName ?? "DataTable/SimpleFilterOption"))));
 
     filters.AddRange(Model.StringFilterOptions.Select((m, i) => new Tuple<FilterOption, MvcHtmlString>(m,
-        Html.EditorFor(model => model.StringFilterOptions[i], Model.StringFilterOptions[i].EditorTemplateName ?? "DataGrid/StringFilter"))));
+        Html.EditorFor(model => model.StringFilterOptions[i], Model.StringFilterOptions[i].EditorTemplateName ?? "DataTable/SimpleFilterOption"))));
 
 
     var controllerName = Model.Parameters.DataTableControllerType.Name;

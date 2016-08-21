@@ -53,11 +53,20 @@ namespace TomTom.DataTable
                     case OperationType.Equals:
                         body = Expression.Equal(property, param);
                         break;
+                    case OperationType.NotEquals:
+                        body = Expression.NotEqual(property, param);
+                        break;
                     case OperationType.MoreThen:
                         body = Expression.GreaterThan(property, param);
                         break;
+                    case OperationType.MoreOrEquealsThen:
+                        body = Expression.GreaterThanOrEqual(property, param);
+                        break;
                     case OperationType.LessThen:
                         body = Expression.LessThan(property, param);
+                        break;
+                    case OperationType.LessOrEquealsThen:
+                        body = Expression.LessThanOrEqual(property, param);
                         break;
                     case OperationType.Contains:
                         // ReSharper disable once PossiblyMistakenUseOfParamsMethod
