@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,11 @@ namespace TomTom.Utilities
     public static class StringUtilities
     {
 
+        private static readonly ConcurrentDictionary<Type, Func<string, object>> CustomConverters = new ConcurrentDictionary<Type, Func<string, object>>();
+        public static void AddConverter(Type type, Func<string, object> converter)
+        {
+            CustomConverters.AddOrUpdate(type, converter, (key, oldValue) => converter);
+        }
         public static object ConvertToObject(this string source, Type type)
         {
             var t = Nullable.GetUnderlyingType(type) ?? type;
@@ -18,6 +24,12 @@ namespace TomTom.Utilities
                 {
                     return null;
                 }
+                Func<string, object> converter = null;
+                if (CustomConverters.TryGetValue(type, out converter))
+                {
+                    return converter(source);
+                }
+
                 return Convert.ChangeType(source, t);
             }
 

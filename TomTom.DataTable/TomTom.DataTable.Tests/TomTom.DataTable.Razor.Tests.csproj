@@ -80,10 +80,17 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="TomTom.Functional, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\VisualStudioProjects\Visual Studio 2015\Projects\TomTom.Functional\TomTom.Functional\bin\Release\TomTom.Functional.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseViewModelAdapterTests.cs" />
+    <Compile Include="DataTableHelpersTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Controllers\HomeControllerTest.cs" />
+    <Compile Include="SummaryTests.cs" />
+    <Compile Include="TestViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
@@ -92,6 +99,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TomTom.Core\TomTom.DataTable.Core.csproj">
+      <Project>{80d35c6c-4a7d-486f-b0c4-d6a2b0ff5103}</Project>
+      <Name>TomTom.DataTable.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TomTom.DataTable\TomTom.DataTable.Razor.csproj">
       <Project>{5D9EE93D-5F16-4D58-BC1B-0B230E9ED079}</Project>
       <Name>TomTom.DataTable.Razor</Name>

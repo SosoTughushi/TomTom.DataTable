@@ -30,7 +30,7 @@ namespace TomTom.DataTable
                 }
 
                 //Expression property = FieldName.GetPropertyExpression<TEntity>(false);
-                ConstantExpression param;
+                Expression param;
                 Array array = null;
                 var type = Nullable.GetUnderlyingType(filterOption.ValueType) ?? filterOption.ValueType;
 
@@ -40,13 +40,15 @@ namespace TomTom.DataTable
                     if (val == null)
                         return null;
 
-                    param = Expression.Constant(val, Nullable.GetUnderlyingType(filterOption.ValueType) ?? filterOption.ValueType);
+                    param = Expression.Constant(val,  filterOption.ValueType);
                 }
                 else
                 {
                     array = (Array)filterOption.Value.ConvertToObject(filterOption.ValueType);
                     param = Expression.Constant(array, filterOption.ValueType);
                 }
+                
+
                 Expression body = null;
                 switch (filterOption.OperationType)
                 {
@@ -76,8 +78,11 @@ namespace TomTom.DataTable
                         body = Expression.Call(null, ContainsInfo.MakeGenericMethod(filterOption.ValueType.GetElementType()), param, property);
                         break;
                     case OperationType.Between:
-                        var first = array.GetValue(0);
-                        var second = array.GetValue(1);
+                        Func<int, object> safeGet = index => array.Length > index ? array.GetValue(index) : null;
+
+
+                        var first = safeGet(0);
+                        var second = safeGet(1);
                         // ReSharper disable once PossibleNullReferenceException
 
                         if (first == null && second == null)
@@ -86,18 +91,18 @@ namespace TomTom.DataTable
                         }
                         if (first == null)
                         {
-                            var secondParam = Expression.Constant(second, second.GetType());
+                            var secondParam = Expression.Constant(second, property.Type);
                             body = Expression.LessThanOrEqual(property, secondParam);
                         }
                         else if (second == null)
                         {
-                            var firstParam = Expression.Constant(first, first.GetType());
+                            var firstParam = Expression.Constant(first, property.Type);
                             body = Expression.GreaterThanOrEqual(property, firstParam);
                         }
                         else
                         {
-                            var secondParam = Expression.Constant(second, second.GetType());
-                            var firstParam = Expression.Constant(first, first.GetType());
+                            var secondParam = Expression.Constant(second, property.Type);
+                            var firstParam = Expression.Constant(first, property.Type);
                             body = Expression.And(
                                 Expression.GreaterThanOrEqual(property, firstParam),
                                 Expression.LessThanOrEqual(property, secondParam));

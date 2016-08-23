@@ -33,7 +33,7 @@ namespace TomTom.DataTable
 
         }
 
-        public Filters(List<FilterOption> filterOptions, string tableId)
+        public Filters(List<FilterOption> filterOptions, string tableId) :this()
         {
             TableId = tableId;
             if (filterOptions == null) return;
@@ -70,6 +70,9 @@ namespace TomTom.DataTable
 
             filterOptions.AddRange(IntFilterOptions);
             filterOptions.AddRange(IntFilterOptionsNullable);
+
+            filterOptions.AddRange(DoubleFilterOptions);
+            filterOptions.AddRange(DoubleFilterOptionsNullable);
 
             filterOptions.AddRange(DateTimeFilterOptions);
             filterOptions.AddRange(DateTimeFilterOptionsNullable);

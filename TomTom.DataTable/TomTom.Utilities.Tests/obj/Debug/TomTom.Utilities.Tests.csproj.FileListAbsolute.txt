@@ -1,0 +1,9 @@
+F:\Soso\Projects\TomTom.DataTable\TomTom.DataTable\TomTom.Utilities.Tests\bin\Debug\TomTom.Utilities.Tests.dll
+F:\Soso\Projects\TomTom.DataTable\TomTom.DataTable\TomTom.Utilities.Tests\bin\Debug\TomTom.Utilities.Tests.pdb
+F:\Soso\Projects\TomTom.DataTable\TomTom.DataTable\TomTom.Utilities.Tests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+F:\Soso\Projects\TomTom.DataTable\TomTom.DataTable\TomTom.Utilities.Tests\bin\Debug\TomTom.Utilities.dll
+F:\Soso\Projects\TomTom.DataTable\TomTom.DataTable\TomTom.Utilities.Tests\bin\Debug\TomTom.Utilities.pdb
+F:\Soso\Projects\TomTom.DataTable\TomTom.DataTable\TomTom.Utilities.Tests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml
+F:\Soso\Projects\TomTom.DataTable\TomTom.DataTable\TomTom.Utilities.Tests\obj\Debug\TomTom.Utilities.Tests.dll
+F:\Soso\Projects\TomTom.DataTable\TomTom.DataTable\TomTom.Utilities.Tests\obj\Debug\TomTom.Utilities.Tests.pdb
+F:\Soso\Projects\TomTom.DataTable\TomTom.DataTable\TomTom.Utilities.Tests\obj\Debug\TomTom.Utilities.Tests.csprojResolveAssemblyReference.cache

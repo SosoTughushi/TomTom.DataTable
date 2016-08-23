@@ -23,7 +23,7 @@ namespace TomTom.DataTable.Demo.Models
     {
         public Demo2Model Model { get; set; }
 
-        public override RowType GetRowType()
+        public override RowType GetRowType(string tableId)
         {
             if(Model.IsCorrupted)
                 return RowType.Error;
@@ -46,7 +46,7 @@ namespace TomTom.DataTable.Demo.Models
                 return RowType.Warning;
             }
 
-            return base.GetRowType();
+            return base.GetRowType(tableId);
         }
 
         public override string GetRowClasses(string invokerId)

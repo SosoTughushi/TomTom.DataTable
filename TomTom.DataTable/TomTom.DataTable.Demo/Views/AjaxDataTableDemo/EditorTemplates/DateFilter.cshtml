@@ -5,8 +5,10 @@
     Model.OperationType = OperationType.Between;
 }
 
-@Html.HiddenFor(m => m.PropName)
 @Html.HiddenFor(m => m.OperationType)
+
+
+@Html.EditorForModel("DataTable/FilterOption")
 
 <div class="form-group">
     <label>@Model.Text</label>

@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.DataTable.Core", "To
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.Utilities", "TomTom.Helpers\TomTom.Utilities.csproj", "{E2B5F6DC-9EB3-42BA-B8EA-943E883E2788}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.DataTable.Core.Tests", "TomTom.DataTable.Core.Tests\TomTom.DataTable.Core.Tests.csproj", "{A0A96CA2-B9B5-4414-9227-4E2AAE9A3CC4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.Utilities.Tests", "TomTom.Utilities.Tests\TomTom.Utilities.Tests.csproj", "{29439163-B406-44B7-8F66-E1D9E44D114D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{E2B5F6DC-9EB3-42BA-B8EA-943E883E2788}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2B5F6DC-9EB3-42BA-B8EA-943E883E2788}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E2B5F6DC-9EB3-42BA-B8EA-943E883E2788}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0A96CA2-B9B5-4414-9227-4E2AAE9A3CC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0A96CA2-B9B5-4414-9227-4E2AAE9A3CC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0A96CA2-B9B5-4414-9227-4E2AAE9A3CC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0A96CA2-B9B5-4414-9227-4E2AAE9A3CC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29439163-B406-44B7-8F66-E1D9E44D114D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29439163-B406-44B7-8F66-E1D9E44D114D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29439163-B406-44B7-8F66-E1D9E44D114D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29439163-B406-44B7-8F66-E1D9E44D114D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

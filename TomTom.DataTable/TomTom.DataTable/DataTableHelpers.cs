@@ -11,7 +11,7 @@ using System.Web.Mvc.Html;
 namespace TomTom.DataTable.Razor
 {
 
-    internal static class DataTableHelpers
+    public static class DataTableHelpers
     {
         public static List<Property<T>> ExtractPropertiesAndGridAttributes<T>(IEnumerable<Column<T>> columns) where T : BaseViewModel
         {
@@ -119,8 +119,8 @@ namespace TomTom.DataTable.Razor
             var gridRow = new GridRow()
             {
                 GridCells = gridCells,
-                Actions = item1.GetActions(urlHelper),
-                RowType = item1.GetRowType(),
+                Actions = item1.GetActions(urlHelper,parameters.TableId),
+                RowType = item1.GetRowType(parameters.TableId),
                 DetailUrl = parameters.HasDetails
                     ? item.Detailurl(urlHelper, parameters.TableId)
                     : null,
@@ -129,9 +129,9 @@ namespace TomTom.DataTable.Razor
                 RowData = item1.GetRowData(parameters.TableId),
                 RowClasses = item1.GetRowClasses(parameters.TableId)
             };
-            if (item1.PredegeneratedDetailsTemplateName != null)
+            if (item1.GetPregeneratedDetailsTemplateName(parameters.TableId) != null)
             {
-                gridRow.PregeneratedDetails = html.Partial(item1.PredegeneratedDetailsTemplateName, item1);
+                gridRow.PregeneratedDetails = html.Partial(item1.GetPregeneratedDetailsTemplateName(parameters.TableId), item1);
             }
             return gridRow;
         }

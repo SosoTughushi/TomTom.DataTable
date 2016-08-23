@@ -13,10 +13,10 @@ namespace TomTom.DataTable.Demo.Models
 
         public string Name { get; set; }
 
-        public override List<ActionItem> GetActions(UrlHelper helper)
+        public override List<ActionItem> GetActions(UrlHelper helper,string tableId)
         {
             if(!HasActions)
-                return base.GetActions(helper);
+                return base.GetActions(helper,tableId);
 
             return new List<ActionItem>()
             {

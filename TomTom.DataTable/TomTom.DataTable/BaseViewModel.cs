@@ -11,31 +11,30 @@ namespace TomTom.DataTable.Razor
     [Serializable]
     public class BaseViewModel
     {
-        public virtual List<ActionItem> GetActions(UrlHelper helper)
+        public virtual List<ActionItem> GetActions(UrlHelper helper, string tableId)
         {
             return new List<ActionItem>();
         }
 
-        public virtual RowType GetRowType()
+        public virtual RowType GetRowType(string tableId)
         {
             return RowType.None;
         }
-
-
-        public virtual string Detailurl(UrlHelper urlHelper, string invokerId)
+        public virtual string Detailurl(UrlHelper urlHelper, string tableId)
         {
             return "";
         }
 
-        public virtual string PredegeneratedDetailsTemplateName { get { return null; } }
-
+        public virtual string GetPregeneratedDetailsTemplateName(string tableId)
+        {
+            return null;
+        }
         public string Empty { get { return string.Empty; } }
 
         public virtual string GetRowData(string invokerId)
         {
             return string.Empty;
         }
-
         public virtual string GetRowClasses(string invokerId)
         {
             return string.Empty;
@@ -43,10 +42,10 @@ namespace TomTom.DataTable.Razor
 
         public static List<BaseViewModel<T>> CreateSource<T>(
             List<T> source,
-            Func<T, string, string> getRowClasses = null,
-            Func<T, string, string> getRowData = null,
+            Func<T, string> getRowClasses = null,
+            Func<T, string> getRowData = null,
             Func<T, string> pregeneratedDetailsTemplateName = null,
-            Func<T, UrlHelper, string, string> detailsUrl = null,
+            Func<T, UrlHelper, string> detailsUrl = null,
             Func<T, RowType> getRowType = null,
             Func<T, UrlHelper, List<ActionItem>> getActions = null)
         {
@@ -66,92 +65,77 @@ namespace TomTom.DataTable.Razor
     /// with help of this class, there is no need anymore to have separate classes for every datagrid viewmodel.
     /// </summary>
     /// <typeparam name="T"></typeparam>
+
     [Serializable]
     public class BaseViewModel<T> : BaseViewModel
     {
-        private readonly Func<UrlHelper, Func<string, string>> _detailsUrl;
-        private readonly Func<UrlHelper, List<ActionItem>> _getActions;
-        private readonly Func<string, string> _getRowClasses;
-        private readonly Func<string, string> _getRowData;
-        private readonly Func<RowType> _getRowType;
-        private readonly Func<string> _pregeneratedDetailsTemplateName;
 
+        private readonly Func<T, string> _getRowClasses = null;
+        private readonly Func<T, string> _getRowData = null;
+        private readonly Func<T, string> _pregeneratedDetailsTemplateName = null;
+        private readonly Func<T, UrlHelper, string> _detailsUrl = null;
+        private readonly Func<T, RowType> _getRowType = null;
+        private readonly Func<T, UrlHelper, List<ActionItem>> _getActions = null;
         public T Instance { get; private set; }
 
         public BaseViewModel(T t,
-            Func<T, string, string> getRowClasses = null,
-            Func<T, string, string> getRowData = null,
+            Func<T, string> getRowClasses = null,
+            Func<T, string> getRowData = null,
             Func<T, string> pregeneratedDetailsTemplateName = null,
-            Func<T, UrlHelper, string, string> detailsUrl = null,
+            Func<T, UrlHelper, string> detailsUrl = null,
             Func<T, RowType> getRowType = null,
             Func<T, UrlHelper, List<ActionItem>> getActions = null
             )
         {
+            _getRowClasses = getRowClasses;
+            _getRowData = getRowData;
+            _pregeneratedDetailsTemplateName = pregeneratedDetailsTemplateName;
+            _detailsUrl = detailsUrl;
+            _getRowType = getRowType;
+            _getActions = getActions;
             Instance = t;
-
-            if (getRowClasses != null)
-                _getRowClasses = FF.Curry(getRowClasses)(t);
-
-            if (getRowData != null)
-                _getRowData = FF.Curry(getRowData)(t);
-
-            if (pregeneratedDetailsTemplateName != null)
-                _pregeneratedDetailsTemplateName = () => pregeneratedDetailsTemplateName(t);
-
-            if (detailsUrl != null)
-                _detailsUrl = FF.Curry(detailsUrl)(t);
-
-            if (getRowType != null)
-                _getRowType = () => getRowType(t);
-
-            if (getActions != null)
-                _getActions = FF.Curry(getActions)(t);
         }
 
-        public override string Detailurl(UrlHelper urlHelper, string invokerId)
+        public override string Detailurl(UrlHelper urlHelper, string tableId)
         {
             return _detailsUrl != null ?
-                _detailsUrl(urlHelper)(invokerId) :
-                base.Detailurl(urlHelper, invokerId);
+                _detailsUrl(Instance, urlHelper) :
+                base.Detailurl(urlHelper, tableId);
         }
 
-        public override List<ActionItem> GetActions(UrlHelper helper)
+        public override List<ActionItem> GetActions(UrlHelper helper, string tableId)
         {
             return _getActions != null ?
-            _getActions(helper) :
-            base.GetActions(helper);
+            _getActions(Instance, helper) :
+            base.GetActions(helper, tableId);
         }
 
         public override string GetRowClasses(string invokerId)
         {
             return _getRowClasses != null ?
-            _getRowClasses(invokerId)
+            _getRowClasses(Instance)
             : base.GetRowClasses(invokerId);
         }
 
         public override string GetRowData(string invokerId)
         {
-            return _getRowClasses != null ?
-                _getRowClasses(invokerId)
+            return _getRowData != null ?
+                _getRowData(Instance)
                 : base.GetRowData(invokerId);
         }
 
-        public override RowType GetRowType()
+        public override RowType GetRowType(string tableId)
         {
             return
-                _getRowType != null ?
-            _getRowType() : base.GetRowType();
+                _getRowType?.Invoke(Instance) ?? base.GetRowType(tableId);
         }
 
 
-        public override string PredegeneratedDetailsTemplateName
+        public override string GetPregeneratedDetailsTemplateName(string tableId)
         {
-            get
-            {
-                return _pregeneratedDetailsTemplateName != null ?
-                    _pregeneratedDetailsTemplateName() :
-                    base.PredegeneratedDetailsTemplateName;
-            }
+            return _pregeneratedDetailsTemplateName != null ?
+                _pregeneratedDetailsTemplateName(Instance) :
+                base.GetPregeneratedDetailsTemplateName(tableId);
         }
 
 

@@ -72,13 +72,26 @@ namespace TomTom.DataTable
             set { _editorTemplateNameField = value; }
         }
 
-        public abstract IEnumerable<OperationType> DefaultFilterOptionTypes { get; }
+        public abstract List<OperationType> DefaultFilterOptionTypes { get; }
 
     }
 
     public class FilterOption<T> : FilterOption
     {
+        private readonly Func<string, T> _converter;
+
         public List<T> Val { get; set; }
+
+
+        public FilterOption()
+        {
+
+        }
+        public FilterOption(Func<string, T> valueConverter)
+        {
+            _converter = valueConverter;
+        }
+
         public override string Value
         {
             get
@@ -123,14 +136,17 @@ namespace TomTom.DataTable
             }
         }
 
-        private static T ChangeType(string c)
+        private T ChangeType(string value)
         {
-            return (T)Convert.ChangeType(c, Nullable.GetUnderlyingType(typeof(T)) ?? typeof(T));
+            return _converter != null ?
+                        _converter(value) :
+                        value.IsNotEmpty() ?
+                            (T)Convert.ChangeType(value, Nullable.GetUnderlyingType(typeof(T)) ?? typeof(T))
+                            : default(T);
         }
+        
 
-
-
-        public override IEnumerable<OperationType> DefaultFilterOptionTypes
+        public override List<OperationType> DefaultFilterOptionTypes
         {
             get
             {
@@ -189,5 +205,6 @@ namespace TomTom.DataTable
             return typeof (T) == typeof (T2);
         }
 
+        
     }
 }
