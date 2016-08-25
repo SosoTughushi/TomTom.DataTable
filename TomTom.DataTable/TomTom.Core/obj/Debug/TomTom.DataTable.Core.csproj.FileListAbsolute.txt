@@ -1,7 +1,0 @@
-F:\Soso\Projects\TomTom.DataTable\TomTom.DataTable\TomTom.Core\bin\Debug\TomTom.DataTable.dll
-F:\Soso\Projects\TomTom.DataTable\TomTom.DataTable\TomTom.Core\bin\Debug\TomTom.DataTable.pdb
-F:\Soso\Projects\TomTom.DataTable\TomTom.DataTable\TomTom.Core\bin\Debug\TomTom.Utilities.dll
-F:\Soso\Projects\TomTom.DataTable\TomTom.DataTable\TomTom.Core\bin\Debug\TomTom.Utilities.pdb
-F:\Soso\Projects\TomTom.DataTable\TomTom.DataTable\TomTom.Core\obj\Debug\TomTom.DataTable.Core.csprojResolveAssemblyReference.cache
-F:\Soso\Projects\TomTom.DataTable\TomTom.DataTable\TomTom.Core\obj\Debug\TomTom.DataTable.dll
-F:\Soso\Projects\TomTom.DataTable\TomTom.DataTable\TomTom.Core\obj\Debug\TomTom.DataTable.pdb
