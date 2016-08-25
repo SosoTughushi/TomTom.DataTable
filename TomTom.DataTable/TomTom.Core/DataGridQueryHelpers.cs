@@ -21,11 +21,11 @@ namespace TomTom.DataTable
                 }
             }
 
-            var orderingField = dataSelector.OrderingField.GetPropertyExpression<TEntity>();
+            var orderingField = dataSelector.PagingAndOrderingInfo.OrderingField.GetPropertyExpression<TEntity>();
             if (orderingField != null)
             {
                 //Calling Order By Dynamically
-                var orderBy = dataSelector.IsSortDirectionAscending ? "OrderBy" : "OrderByDescending";
+                var orderBy = dataSelector.PagingAndOrderingInfo.IsSortDirectionAscending ? "OrderBy" : "OrderByDescending";
                 var orderByMethodInfo =
                     typeof(Enumerable)
                     .GetMethods(BindingFlags.Static | BindingFlags.Public)//TODO: Change GetMethodS.First to GetMethod
@@ -35,8 +35,8 @@ namespace TomTom.DataTable
                 query = (IEnumerable<TEntity>)orderByMethodInfo.Invoke(null, new object[] { query, ((LambdaExpression)orderingField).Compile() });
 
             }
-            if (dataSelector.ItemsPerPage > 0)
-                query = query.Skip(dataSelector.Offset).Take(dataSelector.ItemsPerPage);
+            if (dataSelector.PagingAndOrderingInfo.ItemsPerPage > 0)
+                query = query.Skip(dataSelector.PagingAndOrderingInfo.Offset).Take(dataSelector.PagingAndOrderingInfo.ItemsPerPage);
             return query;
         }
 
@@ -64,11 +64,11 @@ namespace TomTom.DataTable
                 }
             }
 
-            var orderingField = dataSelector.OrderingField.GetPropertyExpression<TEntity>();
+            var orderingField = dataSelector.PagingAndOrderingInfo.OrderingField.GetPropertyExpression<TEntity>();
             if (orderingField != null)
             {
                 //Calling Order By Dynamically
-                var orderBy = dataSelector.IsSortDirectionAscending ? "OrderBy" : "OrderByDescending";
+                var orderBy = dataSelector.PagingAndOrderingInfo.IsSortDirectionAscending ? "OrderBy" : "OrderByDescending";
                 var orderByMethodInfo =
                     typeof(Queryable)
                     .GetMethods(BindingFlags.Static | BindingFlags.Public)//TODO: Change GetMethodS.First to GetMethod
@@ -78,8 +78,8 @@ namespace TomTom.DataTable
                 query = (IQueryable<TEntity>)orderByMethodInfo.Invoke(null, new object[] { query, ((LambdaExpression)orderingField) });
 
             }
-            if (dataSelector.ItemsPerPage > 0)
-                query = query.Skip(dataSelector.Offset).Take(dataSelector.ItemsPerPage);
+            if (dataSelector.PagingAndOrderingInfo.ItemsPerPage > 0)
+                query = query.Skip(dataSelector.PagingAndOrderingInfo.Offset).Take(dataSelector.PagingAndOrderingInfo.ItemsPerPage);
             return query;
         }
 

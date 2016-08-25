@@ -91,16 +91,7 @@ namespace TomTom.DataTable
         }
 
         public string TableId { get; set; }
-        public int ItemsPerPage { get; set; }
-        public int CurrentPage { get; set; }
-        /// <summary>
-        /// Items per page count must be greater then zero if you want this argument to work
-        /// </summary>
-        public int Offset { get; set; }
-        public int? OrderingColumnIndex { get; set; }
-        public bool IsSortDirectionAscending { get; set; }
 
-        public string OrderingField { get; set; }
 
         public List<FilterOption<string>> StringFilterOptions { get; set; }
 

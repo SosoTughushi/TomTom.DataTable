@@ -107,8 +107,11 @@ namespace TomTom.DataTable.Tests
         {
             var resp = _createAndFilter(new DataGridFilters
             {
-                Offset = 6,
-                ItemsPerPage = 10
+                PagingAndOrderingInfo = new PagingAndOrderingInfo()
+                {
+                    Offset = 6,
+                    ItemsPerPage = 10
+                }
             });
             Assert.AreEqual(4, resp.DataList.Count);
             Assert.AreEqual(10, resp.TotalRecords);
@@ -129,7 +132,10 @@ namespace TomTom.DataTable.Tests
                         Val = new List<int> {5 }
                     }
                 },
-                ItemsPerPage = 4
+                PagingAndOrderingInfo = new PagingAndOrderingInfo()
+                {
+                    ItemsPerPage = 4
+                }
             });
             Assert.AreEqual(4, resp.DataList.Count);
             Assert.AreEqual(5, resp.TotalRecords);

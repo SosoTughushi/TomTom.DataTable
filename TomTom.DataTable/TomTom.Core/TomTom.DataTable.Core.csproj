@@ -49,6 +49,7 @@
     <Compile Include="ExpressionTreeUtilities.cs" />
     <Compile Include="FilterOption.cs" />
     <Compile Include="Filters.cs" />
+    <Compile Include="PagingAndOrderingInfo.cs" />
     <Compile Include="SelectListItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

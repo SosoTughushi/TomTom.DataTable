@@ -69,7 +69,7 @@ namespace TomTom.DataTable.Razor
                         Parameters = Parameters
                     };
                 if (Parameters.ItemsPerPage.HasValue)
-                    filterOptionCollection.ItemsPerPage = filterOptionCollection.ItemsPerPage == 0 ? Parameters.ItemsPerPage.Value : filterOptionCollection.ItemsPerPage;
+                    filterOptionCollection.PagingAndOrderingInfo.ItemsPerPage = filterOptionCollection.PagingAndOrderingInfo.ItemsPerPage == 0 ? Parameters.ItemsPerPage.Value : filterOptionCollection.PagingAndOrderingInfo.ItemsPerPage;
             }
             Parameters.DataTableControllerType = typeof(T);
 

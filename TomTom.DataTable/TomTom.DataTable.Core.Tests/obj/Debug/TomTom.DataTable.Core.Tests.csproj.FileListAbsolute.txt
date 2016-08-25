@@ -21,5 +21,3 @@ F:\Soso\Projects\TomTom.DataTable\TomTom.DataTable\TomTom.DataTable.Core.Tests\b
 F:\Soso\Projects\TomTom.DataTable\TomTom.DataTable\TomTom.DataTable.Core.Tests\bin\Debug\Moq.xml
 F:\Soso\Projects\TomTom.DataTable\TomTom.DataTable\TomTom.DataTable.Core.Tests\bin\Debug\TomTom.Functional.dll
 F:\Soso\Projects\TomTom.DataTable\TomTom.DataTable\TomTom.DataTable.Core.Tests\bin\Debug\TomTom.Functional.pdb
-F:\Soso\Projects\TomTom.DataTable\TomTom.DataTable\TomTom.DataTable.Core.Tests\bin\Debug\TomTom.DataTable.Core.Tests.dll.CodeAnalysisLog.xml
-F:\Soso\Projects\TomTom.DataTable\TomTom.DataTable\TomTom.DataTable.Core.Tests\bin\Debug\TomTom.DataTable.Core.Tests.dll.lastcodeanalysissucceeded

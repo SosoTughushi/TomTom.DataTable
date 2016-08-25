@@ -45,12 +45,7 @@ namespace TomTom.DataTable.Razor
 
             var gridModel = GetGridModel(metaData, response, htmlHelper);
 
-            gridModel.FilterOptionCollection.Offset = request.Offset;
-            gridModel.FilterOptionCollection.ItemsPerPage = request.ItemsPerPage;
-            gridModel.FilterOptionCollection.CurrentPage = request.CurrentPage;
-            gridModel.FilterOptionCollection.TotalRecords = response.TotalRecords;
-            gridModel.FilterOptionCollection.OrderingColumnIndex = request.OrderingColumnIndex;
-            gridModel.FilterOptionCollection.IsSortDirectionAscending = request.IsSortDirectionAscending;
+            gridModel.FilterOptionCollection.PagingAndOrderingInfo = request.PagingAndOrderingInfo;
             gridModel.Parameters.HasPaging = metaData.Parameters.HasPaging;
 
             return PartialView("DataTable/DataTableBody", gridModel);
