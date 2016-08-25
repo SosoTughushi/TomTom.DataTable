@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace TomTom.DataTable.Razor.Tests
 {
 
-    internal class TestViewModel
+    public class TestViewModel : BaseViewModel
     {
         public int Id { get; set; }
         public int Number { get; internal set; }

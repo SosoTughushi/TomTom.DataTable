@@ -7,3 +7,5 @@ F:\Soso\Projects\TomTom.DataTable\TomTom.DataTable\TomTom.Utilities.Tests\bin\De
 F:\Soso\Projects\TomTom.DataTable\TomTom.DataTable\TomTom.Utilities.Tests\obj\Debug\TomTom.Utilities.Tests.dll
 F:\Soso\Projects\TomTom.DataTable\TomTom.DataTable\TomTom.Utilities.Tests\obj\Debug\TomTom.Utilities.Tests.pdb
 F:\Soso\Projects\TomTom.DataTable\TomTom.DataTable\TomTom.Utilities.Tests\obj\Debug\TomTom.Utilities.Tests.csprojResolveAssemblyReference.cache
+F:\Soso\Projects\TomTom.DataTable\TomTom.DataTable\TomTom.Utilities.Tests\bin\Debug\TomTom.Utilities.Tests.dll.CodeAnalysisLog.xml
+F:\Soso\Projects\TomTom.DataTable\TomTom.DataTable\TomTom.Utilities.Tests\bin\Debug\TomTom.Utilities.Tests.dll.lastcodeanalysissucceeded

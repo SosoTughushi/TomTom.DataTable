@@ -24,9 +24,18 @@ namespace TomTom.DataTable.Razor
         {
             _resolver = resolver;
         }
-        public GridModel GenerateList(IEnumerable<TModel> models, HtmlHelper htmlHelper)
+        public virtual GridModel GenerateList(IEnumerable<TModel> models, HtmlHelper htmlHelper)
         {
-            var properties = _getProperties();
+            List<Property<TModel>> properties;
+
+            if (Properties.IsNotEmpty())
+                properties = Properties;
+            else
+            {
+                var controller = ((IGridColumnProvider<TModel>)_resolver.GetService(Parameters.DataTableControllerType));
+                properties = DataTableHelpers.ExtractPropertiesAndGridAttributes(controller.GetColumns(Parameters.TableId));
+            }
+
             return DataTableHelpers.GetGridModel(htmlHelper, models, Parameters, properties);
         }
         public override Type Type => typeof(TModel);
@@ -51,15 +60,7 @@ namespace TomTom.DataTable.Razor
         //        TemplatePath = Parameters.ExcelTemplatePath
         //    };
         //}
-
-        private List<Property<TModel>> _getProperties()
-        {
-            if (Properties.Any())
-                return Properties;
-            
-            var controller = ((IGridColumnProvider<TModel>)_resolver.GetService(Parameters.DataTableControllerType));
-            return DataTableHelpers.ExtractPropertiesAndGridAttributes(controller.GetColumns(Parameters.TableId));
-        }
+        
     }
 
 

@@ -12,8 +12,10 @@ namespace TomTom.DataTable.Razor
     {
         private readonly IDataTableMetaDataStorage _metaDataStorage;
 
-        protected DataTableController(IDataTableMetaDataStorage storage)
+        protected DataTableController( IDataTableMetaDataStorage storage)
         {
+            if (storage == null)
+                throw new ArgumentNullException("storage");
             _metaDataStorage = storage;
         }
 
@@ -25,47 +27,52 @@ namespace TomTom.DataTable.Razor
             }
         }
 
+        internal DataTableMetaData GetMetaData(DataGridFilters request)
+        {
+            return _metaDataStorage[request.TableId];
+        }
+
 
         public virtual PartialViewResult ProvideDataGridData(DataGridFilters request)
         {
-            var metaData = _metaDataStorage[request.TableId];
+            var metaData = GetMetaData(request);
 
             var response =
-                (DataTableResponse)this.GetType()
-                    .GetMethod("GetData", new[] { typeof(DataGridFilters), metaData.Type })
-                    .Invoke(this, new object[] { request, null });
+                GetDataTableResponse(request, metaData);
 
             var viewContext = new ViewContext(ControllerContext, new FakeView(), ViewData, TempData, TextWriter.Null); //this is hack actually to create htmlHelper and without htmlHelper I wouldn't be able to render partial views
             var htmlHelper = new HtmlHelper(viewContext, new ViewPage());
 
-            var data = (GridModel)metaData.GetType()
-                .GetMethod("GenerateList", new[] { response.Data.GetType(), typeof(HtmlHelper) })
-                .Invoke(metaData, new[] { response.Data, htmlHelper });
+            var gridModel = GetGridModel(metaData, response, htmlHelper);
 
-            data.FilterOptionCollection.Offset = request.Offset;
-            data.FilterOptionCollection.ItemsPerPage = request.ItemsPerPage;
-            data.FilterOptionCollection.CurrentPage = request.CurrentPage;
-            data.FilterOptionCollection.TotalRecords = response.TotalRecords;
-            data.FilterOptionCollection.OrderingColumnIndex = request.OrderingColumnIndex;
-            data.FilterOptionCollection.IsSortDirectionAscending = request.IsSortDirectionAscending;
-            data.Parameters.HasPaging = metaData.Parameters.HasPaging;
+            gridModel.FilterOptionCollection.Offset = request.Offset;
+            gridModel.FilterOptionCollection.ItemsPerPage = request.ItemsPerPage;
+            gridModel.FilterOptionCollection.CurrentPage = request.CurrentPage;
+            gridModel.FilterOptionCollection.TotalRecords = response.TotalRecords;
+            gridModel.FilterOptionCollection.OrderingColumnIndex = request.OrderingColumnIndex;
+            gridModel.FilterOptionCollection.IsSortDirectionAscending = request.IsSortDirectionAscending;
+            gridModel.Parameters.HasPaging = metaData.Parameters.HasPaging;
 
-            return PartialView("DataTable/DataTableBody", data);
+            return PartialView("DataTable/DataTableBody", gridModel);
         }
 
-        //public virtual ActionResult GenerateDefaultExcel(DataGridFilters request)
-        //{
-        //    request.ItemsPerPage = 0;
-        //    var metaData = _metaDataStorage[request.TableId];
+        internal virtual GridModel GetGridModel(DataTableMetaData metaData, DataTableResponse response, HtmlHelper htmlHelper)
+        {
+            var generateListMethod = metaData.GetType()
+                .GetMethod("GenerateList", new[] {response.Data.GetType(), typeof (HtmlHelper)});
 
-        //    var response = (DataTableResponse)GetType().GetMethod("GetData", new[] { typeof(DataGridFilters), metaData.Type })
-        //            .Invoke(this, new object[] { request, null });
+            return (GridModel)
+                generateListMethod.Invoke(metaData, new[] { response.Data, htmlHelper });
+        }
 
-        //    byte[] excel = metaData.GenerateExcel(response.Data);
+        internal virtual DataTableResponse GetDataTableResponse(DataGridFilters request, DataTableMetaData metaData)
+        {
+            var getDataMethod = this.GetType()
+                .GetMethod("GetData", new[] { typeof(DataGridFilters), metaData.Type });
 
-        //    return File(excel, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", (metaData.Parameters.ExcelFileName ?? request.TableId) + ".xlsx");
-        //}
-
+            return (DataTableResponse)getDataMethod
+                .Invoke(this, new object[] { request, null });
+        }
     }
 
 }
