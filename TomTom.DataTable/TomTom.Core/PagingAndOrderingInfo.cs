@@ -18,5 +18,6 @@ namespace TomTom.DataTable
         public string OrderingField { get; set; }
         public int TotalRecords { get; set; }
         public bool IsSortDirectionAscending { get; set; }
+        public string TableId { get; set; }
     }
 }

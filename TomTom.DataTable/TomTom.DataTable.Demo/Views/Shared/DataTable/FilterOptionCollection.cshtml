@@ -59,17 +59,17 @@
     {
         if (Model.Parameters.ItemsPerPage.HasValue)
         {
-            Model.ItemsPerPage = Model.Parameters.ItemsPerPage.Value;
+            Model.PagingAndOrderingInfo.ItemsPerPage = Model.Parameters.ItemsPerPage.Value;
         }
 
         itemsPerPage = !string.IsNullOrEmpty(Model.Parameters.ItemsPerPageEditorTemplateName) ?
-                    Html.EditorFor(m => m.ItemsPerPage, Model.Parameters.ItemsPerPageEditorTemplateName) :
-                    Html.EditorFor(m => m.ItemsPerPage, "DataTable/ItemsPerPage");
+                    Html.EditorFor(m => m.PagingAndOrderingInfo.ItemsPerPage, Model.Parameters.ItemsPerPageEditorTemplateName) :
+                    Html.EditorFor(m => m.PagingAndOrderingInfo.ItemsPerPage, "DataTable/ItemsPerPage");
 
     }
     else
     {
-        filters.Add(new Tuple<FilterOption, MvcHtmlString>(new FilterOption<int>() { PropName = "ItemsPerPage" }, Html.HiddenFor(m => m.ItemsPerPage)));
+        filters.Add(new Tuple<FilterOption, MvcHtmlString>(new FilterOption<int>() { PropName = "ItemsPerPage" }, Html.HiddenFor(m => m.PagingAndOrderingInfo.ItemsPerPage)));
     }
 
     var filterButton = MvcHtmlString.Create(string.Format("<input type='submit' value='Filter' class='btn btn-default {0}' />", Model.Parameters.IsFiltrable ? "" : "hidden"));
@@ -94,9 +94,9 @@
             var m = new DataGridFilterDisplay(filters, filterButton, itemsPerPage);
             @Html.Partial(Model.Parameters.FilterPartialName, m)
         }
-        @Html.HiddenFor(m => m.Offset, new { @class = "offset" })
-        @Html.HiddenFor(m => m.IsSortDirectionAscending, new { @class = "sortDirection" })
-        @Html.HiddenFor(m => m.OrderingField, new { @class = "orderby" })
+        @Html.HiddenFor(m => m.PagingAndOrderingInfo.Offset, new { @class = "offset" })
+        @Html.HiddenFor(m => m.PagingAndOrderingInfo.IsSortDirectionAscending, new { @class = "sortDirection" })
+        @Html.HiddenFor(m => m.PagingAndOrderingInfo.OrderingField, new { @class = "orderby" })
         @Html.HiddenFor(m => m.TableId)
 
     </form>

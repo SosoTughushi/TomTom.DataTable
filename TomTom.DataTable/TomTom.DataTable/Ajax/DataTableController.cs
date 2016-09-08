@@ -33,22 +33,31 @@ namespace TomTom.DataTable.Razor
         }
 
 
-        public virtual PartialViewResult ProvideDataGridData(DataGridFilters request)
+        public PartialViewResult ProvideDataGridData(DataGridFilters request)
         {
             var metaData = GetMetaData(request);
 
             var response =
                 GetDataTableResponse(request, metaData);
 
-            var viewContext = new ViewContext(ControllerContext, new FakeView(), ViewData, TempData, TextWriter.Null); //this is hack actually to create htmlHelper and without htmlHelper I wouldn't be able to render partial views
-            var htmlHelper = new HtmlHelper(viewContext, new ViewPage());
+            var htmlHelper = CreateHtmlHelper();
 
             var gridModel = GetGridModel(metaData, response, htmlHelper);
 
             gridModel.FilterOptionCollection.PagingAndOrderingInfo = request.PagingAndOrderingInfo;
+            request.PagingAndOrderingInfo.TableId = request.TableId;
             gridModel.Parameters.HasPaging = metaData.Parameters.HasPaging;
+            gridModel.FilterOptionCollection.PagingAndOrderingInfo.TotalRecords = response.TotalRecords;
 
             return PartialView("DataTable/DataTableBody", gridModel);
+        }
+
+        internal virtual HtmlHelper CreateHtmlHelper()
+        {
+            var viewContext = new ViewContext(ControllerContext, new FakeView(), ViewData, TempData, TextWriter.Null);
+                //this is hack actually to create htmlHelper and without htmlHelper I wouldn't be able to render partial views
+            var htmlHelper = new HtmlHelper(viewContext, new ViewPage());
+            return htmlHelper;
         }
 
         internal virtual GridModel GetGridModel(DataTableMetaData metaData, DataTableResponse response, HtmlHelper htmlHelper)

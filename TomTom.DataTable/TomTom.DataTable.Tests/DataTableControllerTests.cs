@@ -68,10 +68,40 @@ namespace TomTom.DataTable.Razor.Tests
             _createInstance().GetGridModel(metaDataMock.Object, response, htmlHelper);
 
             metaDataMock.Verify(m => m.GenerateList(response.DataList, htmlHelper));
-            
+
         }
 
-        public static HtmlHelper _createHtmlHelper(ViewDataDictionary vd)
+        [TestMethod]
+        public void ProvideDataGridData_returns_GetGridModel_result()
+        {
+            var metaDataStorage = new Mock<IDataTableMetaDataStorage>();
+            metaDataStorage.Setup(m => m[null]).Returns(new DataTableMetaData<TestViewModel>(null));
+            var controllerMock = new Mock<DummyController>(metaDataStorage.Object);
+            var request = new DataGridFilters();
+            var htmlHelper = _createHtmlHelper(new ViewDataDictionary());
+            controllerMock.Setup(c => c.CreateHtmlHelper()).Returns(htmlHelper);
+            var instance = controllerMock.Object;
+
+            var result = instance.ProvideDataGridData(request);
+
+            controllerMock.Verify(c => c.CreateHtmlHelper());
+
+            controllerMock.Verify(c => c.GetMetaData(request), Times.Once);
+            var metaData = instance.GetMetaData(request);
+
+            controllerMock.Verify(c => c.GetDataTableResponse(request, metaData), Times.Once);
+            var response = instance.GetDataTableResponse(request, metaData);
+
+            controllerMock.Verify(c => c.GetGridModel(metaData, response, htmlHelper), Times.Once);
+            var gridModel = instance.GetGridModel(metaData, response, htmlHelper);
+
+            Assert.AreEqual(result.ViewName, "DataTable/DataTableBody");
+            Assert.AreEqual(result.Model, gridModel);
+        }
+
+
+
+        private static HtmlHelper _createHtmlHelper(ViewDataDictionary vd)
         {
             Mock<ViewContext> mockViewContext = new Mock<ViewContext>(
                 new ControllerContext(

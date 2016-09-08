@@ -11,7 +11,7 @@
 
         if (Model.Parameters.HasPaging)
         {
-            pagingHtmlString = Html.Partial("DataTable/Paging", Model);
+            pagingHtmlString = Html.Partial("DataTable/Paging", Model.FilterOptionCollection.PagingAndOrderingInfo);
         }
     }
 
@@ -39,16 +39,16 @@
                         if (column.IsOrderable && Model.Parameters.IsAjaxDataTable)
                         {
                             string orderDirectionClass;
-                            if (column.Id == Model.FilterOptionCollection.OrderingColumnIndex)
+                            if (column.Id == Model.FilterOptionCollection.PagingAndOrderingInfo.OrderingColumnIndex)
                             {
-                                orderDirectionClass = Model.FilterOptionCollection.IsSortDirectionAscending ? "glyphicon-sort-by-attributes" : "glyphicon-sort-by-attributes-alt";
+                                orderDirectionClass = Model.FilterOptionCollection.PagingAndOrderingInfo.IsSortDirectionAscending ? "glyphicon-sort-by-attributes" : "glyphicon-sort-by-attributes-alt";
                             }
                             else
                             {
                                 orderDirectionClass = "glyphicon-sort";
                             }
                             orderingAttributes = string.Format(@"class='btn btn-default OrderableColumn glyphicon {2}' onclick=DataGrid.order_by('{0}','{1}')",
-                                column.ColumnName, Model.Parameters.TableId, orderDirectionClass);
+                                column.PropName, Model.Parameters.TableId, orderDirectionClass);
                         }
                         var styles = new List<string>();
                         if (column.Align != Align.Left)

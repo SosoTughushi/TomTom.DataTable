@@ -103,6 +103,22 @@ namespace TomTom.DataTable.Tests
         }
 
         [TestMethod]
+        public void GetData_should_return_one_page_and_10_total_records()
+        {
+            var resp = _createAndFilter(new DataGridFilters()
+            {
+                PagingAndOrderingInfo = new PagingAndOrderingInfo()
+                {
+                    ItemsPerPage = 5
+                }
+            });
+
+            Assert.AreEqual(5, resp.DataList.Count);
+            Assert.AreEqual(10, resp.TotalRecords);
+
+        }
+
+        [TestMethod]
         public void GetData_should_return_4_as_data_and_10_as_overall()
         {
             var resp = _createAndFilter(new DataGridFilters

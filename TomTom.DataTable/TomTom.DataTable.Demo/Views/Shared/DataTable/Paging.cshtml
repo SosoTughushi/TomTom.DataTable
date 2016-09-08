@@ -1,11 +1,11 @@
-﻿@model TomTom.DataTable.Razor.GridModel
+﻿@model TomTom.DataTable.PagingAndOrderingInfo
 
 
 @{
-    var itemsPerPage = Model.FilterOptionCollection.ItemsPerPage;
+    var itemsPerPage = Model.ItemsPerPage;
     var safeItemsPerPage = itemsPerPage == 0 ? 1 : itemsPerPage;
-    var offset = Model.FilterOptionCollection.Offset;
-    var totalRecords = Model.FilterOptionCollection.TotalRecords;
+    var offset = Model.Offset;
+    var totalRecords = Model.TotalRecords;
     var pagesCount = totalRecords / safeItemsPerPage + (totalRecords % safeItemsPerPage == 0 ? 0 : 1);
     var currentPage = (offset / safeItemsPerPage);
     currentPage = Math.Min(currentPage, pagesCount - 1);
@@ -13,7 +13,7 @@
 
 @if (itemsPerPage != 0 && pagesCount > 1)
 {
-    <div class="text-center pagination-@Model.Parameters.TableId">
+    <div class="text-center pagination-@Model.TableId">
         <ul class="pagination" data-url="@Url.Action(Request.RawUrl))">
             @if (currentPage > 3)
             {
@@ -57,7 +57,7 @@
 
     <script>
         $(function () {
-            DataGrid.initPagination('@Model.Parameters.TableId');
+            DataGrid.initPagination('@Model.TableId');
         })
     </script>
 }

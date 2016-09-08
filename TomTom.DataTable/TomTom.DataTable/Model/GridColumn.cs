@@ -9,6 +9,7 @@ namespace TomTom.DataTable.Razor
     public class GridColumn
     {
         public string ColumnName { get; set; }
+        public string PropName { get; set; }
         public int? ColumnWidthPercent { get; set; }
 
         public Align Align { get; set; }

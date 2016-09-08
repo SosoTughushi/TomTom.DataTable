@@ -95,6 +95,7 @@ namespace TomTom.DataTable.Razor
             var gridColumn = new GridColumn
             {
                 ColumnName = name ?? property.GridColumnAttribute.Title ?? (display != null ? display.GetName() : ""),
+                PropName = property.Name,
                 ColumnWidthPercent = property.GridColumnAttribute.ColumnWidth,
                 Align = property.GridColumnAttribute.Align,
                 Colspan = property.GridColumnAttribute.Colspan,
