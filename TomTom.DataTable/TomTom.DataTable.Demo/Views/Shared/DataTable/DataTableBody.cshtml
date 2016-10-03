@@ -12,7 +12,7 @@
 
         if (Model.Parameters.HasPaging)
         {
-            pagingHtmlString = Html.Partial("DataTable/Paging", Model.FilterOptionCollection.PagingAndOrderingInfo);
+            pagingHtmlString = Html.Partial(Model.Parameters.PagingInfoEditorTemplateName ?? "DataTable/Paging", Model.FilterOptionCollection.PagingAndOrderingInfo);
         }
     }
 
@@ -30,107 +30,107 @@
         var hasActionsGrid = Model.GridData.Any(a => !a.Actions.IsEmpty());
         <div class="no-more-tables">
             <table class="table dataTable"
-               id="@Model.Parameters.TableId"
-               @string.Join(" ", Model.Parameters.TableData.Select(ha => string.Format("{0}={1}", ha.Key, ha.Value)))>
-            <thead>
-                <tr>
-                    @foreach (var column in Model.GridColumns)//Generateing Columns
-                    {
-                        var orderingAttributes = "";
-                        if (column.IsOrderable && Model.Parameters.IsAjaxDataTable)
+                   id="@Model.Parameters.TableId"
+                   @string.Join(" ", Model.Parameters.TableData.Select(ha => string.Format("{0}={1}", ha.Key, ha.Value)))>
+                <thead>
+                    <tr>
+                        @foreach (var column in Model.GridColumns)//Generateing Columns
                         {
-                            string orderDirectionClass;
-                            if (column.Id == Model.FilterOptionCollection.PagingAndOrderingInfo.OrderingColumnIndex)
+                            var orderingAttributes = "";
+                            if (column.IsOrderable && Model.Parameters.IsAjaxDataTable)
                             {
-                                orderDirectionClass = Model.FilterOptionCollection.PagingAndOrderingInfo.IsSortDirectionAscending ? "glyphicon-sort-by-attributes" : "glyphicon-sort-by-attributes-alt";
+                                string orderDirectionClass;
+                                if (column.Id == Model.FilterOptionCollection.PagingAndOrderingInfo.OrderingColumnIndex)
+                                {
+                                    orderDirectionClass = Model.FilterOptionCollection.PagingAndOrderingInfo.IsSortDirectionAscending ? "glyphicon-sort-by-attributes" : "glyphicon-sort-by-attributes-alt";
+                                }
+                                else
+                                {
+                                    orderDirectionClass = "glyphicon-sort";
+                                }
+                                orderingAttributes = string.Format(@"class='btn btn-default OrderableColumn glyphicon {2}' onclick=DataGrid.order_by('{0}','{1}')",
+                                    column.PropName, Model.Parameters.TableId, orderDirectionClass);
+                            }
+                            var styles = new List<string>();
+                            if (column.Align != Align.Left)
+                            {
+                                styles.Add(string.Format("text-align:{0};", column.Align.ToString().ToLower()));
+                            }
+                            if (column.IsHidden)
+                            {
+                                styles.Add("display: none;");
+                            }
+
+                            var bodyStyle = string.Join("", styles);
+                            bodyStyles.Add(bodyStyle);
+                            if (column.ColumnWidthPercent != null)
+                            {
+                                styles.Add(string.Format("width:{0}%;", column.ColumnWidthPercent));
+                            }
+
+                            var joinedStyles = string.Join("", styles);
+                            var colspan = (column.Colspan > 1) ? "colspan=" + column.Colspan : "";
+                            columnStyles.Add(joinedStyles);
+                            if (column.IsOrderable && Model.Parameters.IsAjaxDataTable)
+                            {
+                                <th style="@Html.Raw(joinedStyles)" @Html.Raw(colspan)>
+                                    <div @Html.Raw(orderingAttributes)>
+                                        @Html.Raw(column.ColumnName)
+                                    </div>
+                                </th>
                             }
                             else
                             {
-                                orderDirectionClass = "glyphicon-sort";
-                            }
-                            orderingAttributes = string.Format(@"class='btn btn-default OrderableColumn glyphicon {2}' onclick=DataGrid.order_by('{0}','{1}')",
-                                column.PropName, Model.Parameters.TableId, orderDirectionClass);
-                        }
-                        var styles = new List<string>();
-                        if (column.Align != Align.Left)
-                        {
-                            styles.Add(string.Format("text-align:{0};", column.Align.ToString().ToLower()));
-                        }
-                        if (column.IsHidden)
-                        {
-                            styles.Add("display: none;");
-                        }
-
-                        var bodyStyle = string.Join("", styles);
-                        bodyStyles.Add(bodyStyle);
-                        if (column.ColumnWidthPercent != null)
-                        {
-                            styles.Add(string.Format("width:{0}%;", column.ColumnWidthPercent));
-                        }
-
-                        var joinedStyles = string.Join("", styles);
-                        var colspan = (column.Colspan > 1) ? "colspan=" + column.Colspan : "";
-                        columnStyles.Add(joinedStyles);
-                        if (column.IsOrderable && Model.Parameters.IsAjaxDataTable)
-                        {
-                            <th style="@Html.Raw(joinedStyles)" @Html.Raw(colspan)>
-                                <div @Html.Raw(orderingAttributes)>
+                                <th style="@Html.Raw(joinedStyles)" @Html.Raw(colspan) @Html.Raw(orderingAttributes)>
                                     @Html.Raw(column.ColumnName)
-                                </div>
-                            </th>
+                                </th>
+                            }
                         }
-                        else
+
+                        @if (hasDetailsGrid || hasActionsGrid)
                         {
-                            <th style="@Html.Raw(joinedStyles)" @Html.Raw(colspan) @Html.Raw(orderingAttributes)>
-                                @Html.Raw(column.ColumnName)
-                            </th>
+                            <th></th>
                         }
-                    }
 
-                    @if (hasDetailsGrid || hasActionsGrid)
-                    {
-                        <th></th>
-                    }
-
-                </tr>
-            </thead>
-            <tbody id="@Model.Parameters.TableId">
-                @if (Model.Footers != null && Model.Footers.Any(f => f.IsFooter))//Generating Headers
+                    </tr>
+                </thead>
+                <tbody id="@Model.Parameters.TableId">
+                    @if (Model.Footers != null && Model.Footers.Any(f => f.IsFooter))//Generating Headers
                 {
                     int index = 0;
                     foreach (var footer in Model.Footers.Where(f => f.IsFooter))
                     {
-                        <tr style="font-weight: bold" @Html.Raw(footer.RowData)>
-                            @foreach (var cell in footer.GridCells)
-                            {
-                                var cellColspan = (cell.Colspan > 1) ? "colspan=" + cell.Colspan : "";
-                                <td @cellColspan @Html.Raw(cell.CellData)>
-                                    @if (footer.SummaryTextDisplayColumnIndex == index)
-                                    {
-                                        @Html.Raw(footer.SummaryText)
-                                    }
-                                    else if (cell.DisplayFormatAttribute != null)
-                                    {
-                                        if (!string.IsNullOrEmpty(cell.DisplayFormatAttribute.DataFormatString))
+                            <tr style="font-weight: bold" @Html.Raw(footer.RowData)>
+                                @foreach (var cell in footer.GridCells)
+                                {
+                                    var cellColspan = (cell.Colspan > 1) ? "colspan=" + cell.Colspan : "";
+                                    <td @cellColspan @Html.Raw(cell.CellData)>
+                                        @if (footer.SummaryTextDisplayColumnIndex == index)
                                         {
-                                            @Html.Raw(string.Format(cell.DisplayFormatAttribute.DataFormatString, cell.Value))
+                                            @Html.Raw(footer.SummaryText)
                                         }
-                                    }
-                                    else
-                                    {
-                                        @Html.Raw(cell.Value)
-                                    }
-                                </td>
+                                        else if (cell.DisplayFormatAttribute != null)
+                                        {
+                                            if (!string.IsNullOrEmpty(cell.DisplayFormatAttribute.DataFormatString))
+                                            {
+                                                @Html.Raw(string.Format(cell.DisplayFormatAttribute.DataFormatString, cell.Value))
+                                            }
+                                        }
+                                        else
+                                        {
+                                            @Html.Raw(cell.Value)
+                                        }
+                                    </td>
                                     index++;
-                            }
-                            @if ((Model.Parameters.HasDetails && (footer.DetailUrl != "" || footer.PregeneratedDetails != null)) || (footer.Actions.IsNotEmpty()))
-                            {
-                                <td></td>
-                            }
-                        </tr>
+                                }
+                                @if ((Model.Parameters.HasDetails && (footer.DetailUrl != "" || footer.PregeneratedDetails != null)) || (footer.Actions.IsNotEmpty()))
+                                {
+                                    <td></td>
+                                }
+                            </tr>
+                        }
                     }
-                }
-                @foreach (var row in Model.GridData)//Generating Data
+                    @foreach (var row in Model.GridData)//Generating Data
                 {
                     var rowClass = "";
                     var hasDetails = Model.Parameters.HasDetails && (row.DetailUrl != "" || row.PregeneratedDetails != null);
@@ -176,7 +176,7 @@
                                     }
                                     else
                                     {
-                                            @Html.Raw(cell.Value?? "&nbsp;")
+                                        @Html.Raw(cell.Value ?? "&nbsp;")
                                     }
                                 }
                             </td>
@@ -218,52 +218,52 @@
                             </td>
                         }
                     </tr>
-                    if (Model.Parameters.HasMessageDisplay)
-                    {
-                        <tr style="display: none;" class="MessageDisplayRow" id="message_@row.Id">
-                            <td colspan="@Model.GridColumns.Count()"></td>
-                        </tr>
+                        if (Model.Parameters.HasMessageDisplay)
+                        {
+                            <tr style="display: none;" class="MessageDisplayRow" id="message_@row.Id">
+                                <td colspan="@Model.GridColumns.Count()"></td>
+                            </tr>
+                        }
                     }
-                }
 
-                @if (Model.Footers != null && Model.Footers.Any(f => !f.IsFooter))//Generating Footer
+                    @if (Model.Footers != null && Model.Footers.Any(f => !f.IsFooter))//Generating Footer
                 {
                     foreach (var footer in Model.Footers.Where(f => !f.IsFooter))
                     {
                         int index = 0;
-                        <tr style="font-weight: bold" @Html.Raw(footer.RowData)>
-                            @foreach (var cell in footer.GridCells)
-                            {
-                                <td colspan="@cell.Colspan" @Html.Raw(cell.CellData)>
+                            <tr style="font-weight: bold" @Html.Raw(footer.RowData)>
+                                @foreach (var cell in footer.GridCells)
+                                {
+                                    <td colspan="@cell.Colspan" @Html.Raw(cell.CellData)>
 
-                                    @if (footer.SummaryTextDisplayColumnIndex == index)
-                                    {
-                                        @Html.Raw(footer.SummaryText)
-                                    }
-                                    else if (cell.DisplayFormatAttribute != null)
-                                    {
-                                        if (!string.IsNullOrEmpty(cell.DisplayFormatAttribute.DataFormatString))
+                                        @if (footer.SummaryTextDisplayColumnIndex == index)
                                         {
-                                            @Html.Raw(string.Format(cell.DisplayFormatAttribute.DataFormatString, cell.Value))
+                                            @Html.Raw(footer.SummaryText)
                                         }
-                                    }
-                                    else
-                                    {
-                                        @Html.Raw(cell.Value)
-                                    }
-                                </td>
+                                        else if (cell.DisplayFormatAttribute != null)
+                                        {
+                                            if (!string.IsNullOrEmpty(cell.DisplayFormatAttribute.DataFormatString))
+                                            {
+                                                @Html.Raw(string.Format(cell.DisplayFormatAttribute.DataFormatString, cell.Value))
+                                            }
+                                        }
+                                        else
+                                        {
+                                            @Html.Raw(cell.Value)
+                                        }
+                                    </td>
                                     index++;
-                            }
-                            @if ((Model.Parameters.HasDetails && (footer.DetailUrl != "" || footer.PregeneratedDetails != null)) || (footer.Actions.IsNotEmpty()))
-                            {
-                                <td></td>
-                            }
-                        </tr>
+                                }
+                                @if ((Model.Parameters.HasDetails && (footer.DetailUrl != "" || footer.PregeneratedDetails != null)) || (footer.Actions.IsNotEmpty()))
+                                {
+                                    <td></td>
+                                }
+                            </tr>
+                        }
                     }
-                }
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
         </div>
 
     }
@@ -272,7 +272,7 @@
         foreach (var actionItem in Model.Parameters.Actions)
         {
             <a id="@actionItem.Id" class="btn @actionItem.Icon" href="@actionItem.Link"
-               @Html.Raw(!string.IsNullOrWhiteSpace(actionItem.OnClick) ? "onClick='" + actionItem.OnClick+"'" : "")>
+               @Html.Raw(!string.IsNullOrWhiteSpace(actionItem.OnClick) ? "onClick='" + actionItem.OnClick + "'" : "")>
                 @(actionItem.ActionName ?? "")
             </a>
         }

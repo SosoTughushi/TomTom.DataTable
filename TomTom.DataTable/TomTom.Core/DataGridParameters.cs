@@ -98,5 +98,6 @@ namespace TomTom.DataTable
         public bool HasItemsPerPageFilter { get; set; }
 
         public string ExcelFileName { get; set; }
+        public string PagingInfoEditorTemplateName { get; set; }
     }
 }
