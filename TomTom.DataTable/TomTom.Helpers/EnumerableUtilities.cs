@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace System.Linq
+namespace TomTom.Utilities
 {
     public static class EnumerableExtentions
     {

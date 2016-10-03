@@ -148,11 +148,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Ajax\AjaxDataTable.cs" />
-    <Compile Include="Ajax\DataTableController.cs" />
-    <Compile Include="Ajax\DataTableMetaData.cs" />
-    <Compile Include="Ajax\IDataProvider.cs" />
-    <Compile Include="Ajax\ITableMetaDataStorage.cs" />
     <Compile Include="BaseViewModel.cs" />
     <Compile Include="Column.cs" />
     <Compile Include="ColumnBase.cs" />

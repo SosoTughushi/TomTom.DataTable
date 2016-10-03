@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using TomTom.DataTable.Demo.Infrastruture;
 using TomTom.DataTable.Razor;
 using TomTom.DataTable.Demo.Models;
+using TomTom.DataTable.Razor.Ajax;
 using FF = TomTom.Functional.Functional;
 
 namespace TomTom.DataTable.Demo.Controllers

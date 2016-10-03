@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.DataTable.Demo", "TomTom.DataTable.Demo\TomTom.DataTable.Demo.csproj", "{D3E15C6B-0A54-4EDF-ACC4-D40F08DC4790}"
 EndProject
@@ -16,6 +16,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.DataTable.Core.Tests", "TomTom.DataTable.Core.Tests\TomTom.DataTable.Core.Tests.csproj", "{A0A96CA2-B9B5-4414-9227-4E2AAE9A3CC4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.Utilities.Tests", "TomTom.Utilities.Tests\TomTom.Utilities.Tests.csproj", "{29439163-B406-44B7-8F66-E1D9E44D114D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TomTom.DataTable.Razor.Ajax", "TomTom.DataTable.Razor.Ajax\TomTom.DataTable.Razor.Ajax.csproj", "{7C2A09E5-B01F-4FAA-A0A1-2D6959689C9F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{29439163-B406-44B7-8F66-E1D9E44D114D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29439163-B406-44B7-8F66-E1D9E44D114D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29439163-B406-44B7-8F66-E1D9E44D114D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C2A09E5-B01F-4FAA-A0A1-2D6959689C9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C2A09E5-B01F-4FAA-A0A1-2D6959689C9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C2A09E5-B01F-4FAA-A0A1-2D6959689C9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C2A09E5-B01F-4FAA-A0A1-2D6959689C9F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

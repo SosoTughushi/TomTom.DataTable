@@ -276,7 +276,7 @@ namespace TomTom.DataTable.Razor
             return this;
         }
 
-        internal Column<T>[] GetColumns()
+        public Column<T>[] GetColumns()
         {
             return _columns.ToArray();
         } 

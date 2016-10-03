@@ -344,6 +344,10 @@
       <Project>{80d35c6c-4a7d-486f-b0c4-d6a2b0ff5103}</Project>
       <Name>TomTom.DataTable.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TomTom.DataTable.Razor.Ajax\TomTom.DataTable.Razor.Ajax.csproj">
+      <Project>{7c2a09e5-b01f-4faa-a0a1-2d6959689c9f}</Project>
+      <Name>TomTom.DataTable.Razor.Ajax</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TomTom.DataTable\TomTom.DataTable.Razor.csproj">
       <Project>{5d9ee93d-5f16-4d58-bc1b-0b230e9ed079}</Project>
       <Name>TomTom.DataTable.Razor</Name>

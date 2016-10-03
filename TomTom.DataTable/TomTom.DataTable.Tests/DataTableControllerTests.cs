@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using TomTom.DataTable.Razor.Ajax;
 
 namespace TomTom.DataTable.Razor.Tests
 {

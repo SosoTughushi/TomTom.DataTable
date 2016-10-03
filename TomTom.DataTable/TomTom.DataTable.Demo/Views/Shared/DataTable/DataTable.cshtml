@@ -1,6 +1,7 @@
 ﻿
 @using System.Web.Mvc
 @using System.Web.Mvc.Html
+@using TomTom.Utilities
 @model TomTom.DataTable.Razor.GridModel
 
 <div @string.Join(" ", Model.Parameters.HtmlAttributes.Select(ha => string.Format("{0}={1}", ha.Key, ha.Value)))>
